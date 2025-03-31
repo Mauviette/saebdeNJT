@@ -1,46 +1,63 @@
 {% extends '_template/base.html.twig' %}
 
 {% block body %}
-
-<div class="most-popular">
-    <div class="container">
-        <div class="heading-section text-center mb-5">
-            <h2 class="mb-4">Bienvenue dans notre boutique</h2>
-            <p>Explorez nos produits populaires et découvrez des articles exclusifs à des prix compétitifs.</p>
+<div class="container my-5">
+    <div class="row gy-4">
+        <!-- Section Articles -->
+        <div class="col-lg-6">
+            <h3>Articles</h3>
+            <div class="border p-4">
+                <ul class="list-unstyled">
+                    {% for article in articles %}
+                    <li class="mb-3">
+                        <a href="article.php?id={{ article.id }}" class="text-decoration-none">{{ article.name }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
         </div>
-        <div class="row">
-            {% for article in articles %}
-            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-                <div class="card h-100 shadow-sm border-light">
-                    <!-- Image de l'article -->
-                    <img src="assets/images/{{ article.id }}.jpg"
-                         alt="{{ article.name }}"
-                         class="card-img-top"
-                         style="object-fit: cover; height: 200px;">
-
-                    <!-- Contenu de la carte -->
-                    <div class="card-body">
-                        <h5 class="card-title">{{ article.name }}</h5>
-                        <h6 class="text-muted">{{ article.category.name }}</h6>
-                        <p class="card-text text-truncate" style="max-height: 60px;">{{ article.description }}</p>
-                    </div>
-
-                    <!-- Footer de la carte -->
-                    <div class="card-footer d-flex">
-                        <div>
-                            <span class="badge bg-primary">Stock: {{ article.stock }}</span>
-                            <span class="badge bg-success">Prix: {{ article.price | number_format(2, ',', ' ') }}€</span>
-                        </div>
-                        <form method="post" action="purchase.php?article_id={{ article.id }}">
-                            <div class="input-group">
-                                <input type="number" name="quantity" min="1" max="{{ article.stock }}" class="form-control" placeholder="Qt" required>
-                                <button class="btn btn-warning btn-sm" type="submit"><i class="fa-solid fa-cart-plus"></i></button>
+        
+        <!-- Section Événements -->
+        <div class="col-lg-6">
+            <h3>Événements</h3>
+            <div class="border p-4">
+                <div class="row gy-3">
+                    {% for event in events %}
+                    <div class="col-6 mb-4">
+                        <div class="card">
+                            <img src="assets/images/events/{{ event.id }}.jpg" class="card-img-top" alt="{{ event.name }}">
+                            <div class="card-body text-center">
+                                <h6 class="card-title">{{ event.name }}</h6>
+                                <p class="text-muted">Le {{ event.date | date('d F Y') }}</p>
                             </div>
-                        </form>
+                        </div>
                     </div>
+                    {% endfor %}
+                </div>
+                <div class="text-center mt-3">
+                    <a href="evenements.php" class="btn btn-dark">Tous les événements</a>
                 </div>
             </div>
-            {% endfor %}
+        </div>
+    </div>
+    
+    <!-- Section À propos du BDE -->
+    <div class="mt-5">
+        <h3>À propos du BDE</h3>
+        <p>Le BDE Informatique de l'IUT du Havre est l'association étudiante qui anime la vie des étudiants en BUT Informatique. 
+        Son objectif ? Créer une ambiance conviviale en organisant divers événements tout au long de l'année : soirées, LAN parties, 
+        tournois de jeux vidéo, sorties et même des ateliers pour approfondir ses compétences techniques.</p>
+    </div>
+    
+    <!-- Section Partenaires -->
+    <div class="mt-5">
+        <h3>Nos partenaires</h3>
+        <div class="d-flex justify-content-around">
+            <img src="../../assets/images/google.png" alt="Google" width="80">
+            <img src="../../assets/images/apple.png" alt="Apple" width="80">
+            <img src="../../assets/images/amazon.png" alt="Amazon" width="80">
+            <img src="../../assets/images/facebook.png" alt="Facebook" width="80">
+            <img src="../../assets/images/microsoft.png" alt="Microsoft" width="80">
         </div>
     </div>
 </div>
