@@ -43,5 +43,52 @@
         </button>
     </div>
 </nav>
+
+<footer class="bg-secondary text-white py-2">
+    <div class="container d-flex justify-content-between align-items-center">
+        <!-- Logo à gauche -->
+        <img src="../../../assets/images/bde-logo.png" alt="Logo" class="img-fluid" style="height: 30px;">
+
+        <!-- Texte au centre -->
+        <span>BDE Informatique © Le Havre - 2025</span>
+
+        <!-- Icônes des réseaux sociaux à droite -->
+        <div>
+            <a href="#" class="text-white me-2">
+                <i class="fa-brands fa-discord fa-lg"></i>
+            </a>
+            <a href="#" class="text-white">
+                <i class="fa-brands fa-instagram fa-lg"></i>
+            </a>
+        </div>
+    </div>
+</footer>
+
+
+<div class="container mt-5">
+    {% block body %}{% endblock %}
+</div>
+
+<!-- Pour gérer le Popover, inclure le script JS de Bootstrap -->
+<script>
+    // Activer le popover au chargement de la page avec html activé
+    document.addEventListener('DOMContentLoaded', function () {
+        const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
+
+        // Parcourir tous les éléments qui ont le data-bs-toggle="popover"
+        [...popoverTriggerList].forEach(popoverTriggerEl => {
+            // Initialiser le popover pour chaque élément et activer l'option html: true
+            new bootstrap.Popover(popoverTriggerEl, {
+                html: true  // Permet l'interprétation du HTML dans le contenu du popover
+            });
+        });
+    });
+</script>
+
+<!-- Bootstrap Bundle JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+{% block javascript %}{% endblock %}
 </body>
 </html>
