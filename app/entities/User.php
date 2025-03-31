@@ -1,71 +1,81 @@
 <?php
 class User {
    
-    public function __construct(private ?int $id,private string $firstname,private string $lastname,private string $email, private ?string $password)
-    {}
+    public function __construct(private ?int $id,
+                            private ?string $nom,
+                            private ?float $fonds,
+                            private ?string $date_publication,
+                            private ?string $role,
+                            private ?string $date_adhesion) {
 
-    public function getId(): ?int
-    {
+                            }
+
+    public function getId(): ?int {
         return $this->id;
     }
 
-    public function getFirstname(): string
-    {
-        return $this->firstname;
+    public function setId(?int $id): void {
+        $this->id = $id;
     }
 
-    public function setFirstname(string $firstname): void
-    {
-        $this->firstname = $firstname;
+    public function getNom(): ?string {
+        return $this->nom;
     }
 
-    public function getLastname(): string
-    {
-        return $this->lastname;
+    public function setNom(?string $nom): void {
+        $this->nom = $nom;
     }
 
-    public function setLastname(string $lastname): void
-    {
-        $this->lastname = $lastname;
+    public function getFonds(): ?float {
+        return $this->fonds;
     }
 
-    public function getEmail(): string
-    {
-        return $this->email;
+    public function setFonds(?float $fonds): void {
+        $this->fonds = $fonds;
     }
 
-    public function setEmail(string $email): void
-    {
-        $this->email = $email;
+    public function getDatePublication(): ?string {
+        return $this->date_publication;
     }
 
-    public function getPassword(): ?string
-    {
-        return $this->password;
+    public function setDatePublication(?string $date_publication): void {
+        $this->date_publication = $date_publication;
     }
 
-    public function setPassword(?string $password): void
-    {
-        $this->password = $password;
+    public function getRole(): ?string {
+        return $this->role;
     }
 
-    public function __serialize(): array
-    {
+    public function setRole(?string $role): void {
+        $this->role = $role;
+    }
+
+    public function getDateAdhesion(): ?string {
+        return $this->date_adhesion;
+    }
+
+    public function setDateAdhesion(?string $date_adhesion): void {
+        $this->date_adhesion = $date_adhesion;
+    }
+
+    public function serialize(): array {
         return [
             'id' => $this->id,
-            'firstname' => $this->firstname,
-            'lastname' => $this->lastname,
-            'email' => $this->email
+            'nom' => $this->nom,
+            'fonds' => $this->fonds,
+            'date_publication' => $this->date_publication,
+            'role' => $this->role,
+            'date_adhesion' => $this->date_adhesion,
         ];
     }
 
-    public function __unserialize(array $data):void
-    {
+    public function unserialize(array $data): void {
         $this->id = $data['id'];
-        $this->firstname = $data['firstname'];
-        $this->lastname = $data['lastname'];
-        $this->email = $data['email'];
-        $this->password = 'password';
+        $this->nom = $data['nom'];
+        $this->fonds = $data['fonds'];
+        $this->date_publication = $data['date_publication'];
+        $this->role = $data['role'];
+        $this->date_adhesion = $data['date_adhesion'];
     }
 }
 ?>
