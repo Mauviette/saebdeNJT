@@ -3,7 +3,7 @@
 require_once './app/core/Controller.php';
 require_once './app/entities/Purchase.php';
 require_once './app/repositories/ArticleRepository.php';
-require_once './app/repositories/CategoryRepository.php';
+require_once './app/repositories/EventRepository.php';
 require_once './app/trait/FormTrait.php';
 require_once './app/services/AuthService.php';
 
