@@ -14,7 +14,7 @@
     <!-- Gestion des membres -->
     <h4>Gestion des membres</h4>
     <table class="table table-bordered">
-        <thead>
+        <thead class="table-secondary">
             <tr>
                 <th>Nom d'utilisateur</th>
                 <th>Email</th>
@@ -22,23 +22,47 @@
             </tr>
         </thead>
         <tbody>
-            <!-- Données vides pour l'instant -->
+            <tr>
+                <td>johndoe</td>
+                <td>johndoe@example.com</td>
+                <td>100€</td>
+            </tr>
+            <tr>
+                <td>janedoe</td>
+                <td>janedoe@example.com</td>
+                <td>250€</td>
+            </tr>
         </tbody>
     </table>
 
     <!-- Gestion des commandes -->
     <h4>Gestion des commandes</h4>
     <table class="table table-bordered">
-        <thead>
+        <thead class="table-secondary">
             <tr>
                 <th>Produit</th>
                 <th>Quantité</th>
                 <th>Acheteur</th>
-                <th>Fait ?</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
-            <!-- Données vides pour l'instant -->
+            <tr>
+                <td>Produit B</td>
+                <td>1</td>
+                <td>janedoe</td>
+                <td>
+                    <button class="btn btn-success btn-sm">Fait</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Produit A</td>
+                <td>2</td>
+                <td>johndoe</td>
+                <td>
+                    <button class="btn btn-danger btn-sm">Supprimer</button>
+                </td>
+            </tr>
         </tbody>
     </table>
 
@@ -47,11 +71,13 @@
     <div class="row">
         <div class="col-md-4">
             <ul class="list-group">
-                <!-- Données vides pour l'instant -->
+                <li class="list-group-item">Message de johndoe</li>
+                <li class="list-group-item">Message de janedoe</li>
             </ul>
         </div>
         <div class="col-md-8 border p-3">
-            <!-- Données vides pour l'instant -->
+            <p><strong>De :</strong> johndoe@example.com</p>
+            <p><strong>Message :</strong> Bonjour, j'ai une question sur votre produit.</p>
         </div>
     </div>
 </div>
