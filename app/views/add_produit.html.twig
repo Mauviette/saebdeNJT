@@ -1,0 +1,31 @@
+{% extends '_template/base.html.twig' %}
+
+{% block body %}
+<div class="container my-5">
+    <a href="admin.php" class="btn btn-link">← Retour au menu admin</a>
+    <h3 class="text-center">Ajout de produit</h3>
+    <form method="POST" action="/add-product" enctype="multipart/form-data">
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="name" class="form-label">Nom :</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Entrez le nom" required>
+            </div>
+            <div class="col-md-6">
+                <label for="productImage" class="form-label">Image du produit :</label>
+                <input type="file" class="form-control" id="productImage" name="productImage">
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Description :</label>
+            <textarea class="form-control" id="description" name="description" rows="4" placeholder="Entrez la description" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="price" class="form-label">Prix :</label>
+            <input type="text" class="form-control" id="price" name="price" placeholder="Entrez le prix" required>
+        </div>
+        <div class="d-grid">
+            <button type="submit" class="btn btn-secondary">Envoyer</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
