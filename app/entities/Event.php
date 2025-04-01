@@ -6,6 +6,7 @@ class Event {
                             private ?string $content,
                             private ?string $place,
                             private ?\DateTime $date,
+                            private ?float $price
                             ) {
 
                             }
@@ -42,12 +43,22 @@ class Event {
         $this->place = $place;
     }
 
-    public function getDatePublication(): ?\DateTime {
-        return $this->date_publication;
+    public function getDate(): ?\DateTime {
+        return $this->date;
     }
 
-    public function setDatePublication(?\DateTime $date_publication): void {
-        $this->date_publication = $date_publication;
+    public function setDate(?\DateTime $date): void {
+        $this->date = $date;
     }
+
+    public function getPrice(): ?float {
+        return $this->price;
+    }
+
+    public function setPrice(?float $price): void {
+        $this->price = $price;
+    }
+
+
 }
 ?>

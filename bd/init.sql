@@ -11,17 +11,17 @@ DROP TABLE IF EXISTS Produits CASCADE;
 
 
 CREATE TABLE Utilisateur (
-    id_utilisateur INT PRIMARY KEY AUTO_INCREMENT,
+    id_utilisateur SERIAL PRIMARY KEY,
     nom TEXT NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
     mot_de_passe VARCHAR(255) NOT NULL,
     fond DECIMAL(15,2) DEFAULT 0,
-    role ENUM('admin', 'utilisateur') NOT NULL,
+    role VARCHAR(20) NOT NULL CHECK (role IN ('admin', 'utilisateur_adherent', 'utilisateur')),
     date_adhesion DATE NOT NULL
 );
 
 CREATE TABLE Evenements (
-    id_evenement INT PRIMARY KEY AUTO_INCREMENT,
+    id_evenement SERIAL PRIMARY KEY,
     titre VARCHAR(50) NOT NULL,
     description TEXT,
     lieu VARCHAR(255) NOT NULL,
@@ -30,13 +30,13 @@ CREATE TABLE Evenements (
 );
 
 CREATE TABLE Commande (
-    id_commande INT PRIMARY KEY AUTO_INCREMENT,
+    id_commande SERIAL PRIMARY KEY,
     prix INT NOT NULL,
     quantite INT NOT NULL
 );
 
 CREATE TABLE Produits (
-    id_produit INT PRIMARY KEY AUTO_INCREMENT,
+    id_produit SERIAL PRIMARY KEY,
     nom_Prod VARCHAR(25) NOT NULL,
     Description VARCHAR(1000),
     Prix DECIMAL(10,2) NOT NULL,
@@ -44,17 +44,13 @@ CREATE TABLE Produits (
 );
 
 CREATE TABLE Articles (
-    id_article INT PRIMARY KEY AUTO_INCREMENT,
+    id_article SERIAL PRIMARY KEY,
     titre VARCHAR(255) NOT NULL,
     contenu TEXT NOT NULL,
-    date_publication DATETIME NOT NULL
+    date_publication TIMESTAMP NOT NULL
 );
 
-CREATE TABLE Commentaires (
-    id_commentaire INT PRIMARY KEY AUTO_INCREMENT,
-    date DATE NOT NULL,
-    contenu VARCHAR(50) NOT NULL
-);
+-- Removed duplicate table creation for Commentaires
 
 -- Relations
 
@@ -105,3 +101,30 @@ CREATE TABLE Est_Envoye_Sur (
     FOREIGN KEY (id_commentaire) REFERENCES Commentaires(id_commentaire) ON DELETE CASCADE,
     FOREIGN KEY (id_evenement) REFERENCES Evenements(id_evenement) ON DELETE CASCADE
 );
+
+
+
+-- Exemples de données
+INSERT INTO Articles (titre, contenu, date_publication) VALUES
+('Découverte d''une nouvelle exoplanète', 'Les astronomes ont découvert une exoplanète potentiellement habitable à 12 années-lumière de la Terre.', NOW()),
+('Avancée majeure dans la lutte contre le cancer', 'Des chercheurs ont mis au point un traitement révolutionnaire qui réduit les tumeurs de 80% en quelques semaines.', NOW()),
+('Lancement d''une voiture électrique révolutionnaire', 'Une startup a dévoilé une voiture électrique avec une autonomie de 1000 km et une recharge en 5 minutes.', NOW()),
+('Record mondial de vitesse en avion', 'Un avion expérimental a battu le record de vitesse en atteignant Mach 10.', NOW()),
+('Découverte d''une cité perdue', 'Des archéologues ont découvert une cité perdue datant de 3000 ans dans la jungle amazonienne.', NOW()),
+('Progrès dans l''intelligence artificielle', 'Une nouvelle IA est capable de composer des symphonies dignes des plus grands compositeurs.', NOW()),
+('Mission réussie sur Mars', 'Un rover a découvert des traces d''eau liquide sur Mars, relançant les espoirs de trouver de la vie.', NOW()),
+('Invention d''un matériau ultra-résistant', 'Des scientifiques ont créé un matériau 10 fois plus résistant que l''acier et 5 fois plus léger.', NOW()),
+('Découverte d''une nouvelle espèce marine', 'Une expédition sous-marine a révélé une espèce de poisson bioluminescent inconnue jusqu''à présent.', NOW()),
+('Progrès dans l''intelligence artificielle', 'Une nouvelle IA est capable de composer des symphonies dignes des plus grands compositeurs.', NOW());
+
+INSERT INTO Evenements (titre, description, lieu, prix, date_evenement) VALUES
+('Soirée Laser Game', 'Une soirée amusante de laser game entre amis.', 'Laser Game Arena, Paris', 20.00, '2023-11-15'),
+('Bowling Night', 'Participez à une soirée bowling avec des prix à gagner.', 'Bowling Center, Lyon', 15.00, '2023-11-20'),
+('Escape Game Challenge', 'Résolvez des énigmes pour vous échapper en équipe.', 'Escape Room, Marseille', 25.00, '2023-12-05'),
+('Tournoi de Karting', 'Compétition de karting avec des trophées pour les gagnants.', 'Karting Club, Toulouse', 30.00, '2023-12-10'),
+('Soirée Cinéma en Plein Air', 'Projection de films sous les étoiles.', 'Parc Central, Bordeaux', 10.00, '2023-11-25'),
+('Atelier de Cuisine', 'Apprenez à cuisiner des plats délicieux avec un chef.', 'Cuisine Studio, Lille', 50.00, '2023-12-01'),
+('Randonnée en Montagne', 'Une journée de randonnée avec des guides expérimentés.', 'Alpes, Grenoble', 0.00, '2023-11-18'),
+('Soirée Jeux de Société', 'Une soirée conviviale autour de jeux de société.', 'Café Ludique, Nantes', 5.00, '2023-11-22'),
+('Cours de Yoga en Plein Air', 'Séance de yoga pour tous les niveaux.', 'Plage de Nice', 10.00, '2023-11-30'),
+('Concert de Musique Live', 'Un concert avec des artistes locaux.', 'Salle de Concert, Strasbourg', 25.00, '2023-12-15');
