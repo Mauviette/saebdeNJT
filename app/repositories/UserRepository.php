@@ -3,63 +3,62 @@ require_once './app/core/Repository.php';
 require_once './app/entities/User.php';
 
 class UserRepository {
-    private $pdo;
-
-    public function __construct() {
-        $this->pdo = Repository::getInstance()->getPDO();
+    public function findById(int $id): ?User {
+        $query = $this->db->prepare("SELECT * FROM users WHERE id = :id");
+        $query->bindParam(':id', $id, PDO::PARAM_INT);
+        $query->execute();
+        $data = $query->fetch(PDO::FETCH_ASSOC);
+        if ($data) {
+            return new User(
+                $data['id'],
+                $data['nom'],
+                $data['fonds'],
+                $data['date_publication'],
+                $data['role'],
+                $data['date_adhesion']
+            );
+        }
+        return null;
     }
-
     public function findAll(): array {
-        $stmt = $this->pdo->query('SELECT * FROM "User"');
+        $query = $this->db->query("SELECT * FROM users");
         $users = [];
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $users[] = $this->createUserFromRow($row);
+        while ($data = $query->fetch(PDO::FETCH_ASSOC)) {
+            $users[] = new User(
+                $data['id'],
+                $data['nom'],
+                $data['fonds'],
+                $data['date_publication'],
+                $data['role'],
+                $data['date_adhesion']
+            );
         }
         return $users;
     }
-
-    private function createUserFromRow(array $row): User
-    {
-        return new User($row['id'], $row['firstname'], $row['lastname'], $row['email'], $row['password']);
+    public function save(User $user): void {
+        if ($user->getId() === null) {
+            $query = $this->db->prepare("
+                INSERT INTO users (nom, fonds, date_publication, role, date_adhesion)
+                VALUES (:nom, :fonds, :date_publication, :role, :date_adhesion)
+            ");
+        } else {
+            $query = $this->db->prepare("
+                UPDATE users
+                SET nom = :nom, fonds = :fonds, date_publication = :date_publication, role = :role, date_adhesion = :date_adhesion
+                WHERE id = :id
+            ");
+            $query->bindParam(':id', $user->getId(), PDO::PARAM_INT);
+        }
+        $query->bindParam(':nom', $user->getNom(), PDO::PARAM_STR);
+        $query->bindParam(':fonds', $user->getFonds(), PDO::PARAM_STR);
+        $query->bindParam(':date_publication', $user->getDatePublication(), PDO::PARAM_STR);
+        $query->bindParam(':role', $user->getRole(), PDO::PARAM_STR);
+        $query->bindParam(':date_adhesion', $user->getDateAdhesion(), PDO::PARAM_STR);
+        $query->execute();
     }
-
-    public function create(User $user): bool {
-        $stmt = $this->pdo->prepare('INSERT INTO "User" (firstname,lastname,email,password ) VALUES (:firstname, :lastname, :email, :password)');
-        return $stmt->execute([
-            'firstname' => $user->getFirstname(),
-            'lastname' => $user->getLastname(),
-            'email' => $user->getEmail(),
-            'password' => $user->getPassword(),
-        ]);
-    }
-
-    public function update(User $user): bool
-    {
-        $stmt = $this->pdo->prepare('UPDATE "User" SET firstname = :newFirstname, lastname = :newLastname, email = :newEmail, password = :newPassword WHERE id = :id');
-        return $stmt->execute([
-            'newFirstname' => $user->getFirstname(),
-            'newLastname' => $user->getLastname(),
-            'newEmail' => $user->getEmail(),
-            'newPassword' => $user->getPassword(),
-            'id' => $user->getId(),
-        ]);
-    }
-
-    public function findByEmail(string $email): ?User {
-        $stmt = $this->pdo->prepare('SELECT * FROM "User" WHERE email = :email');
-        $stmt->execute(['email' => $email]);
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
-        if($user)
-            return $this->createUserFromRow($user);
-        return null;
-    }
-
-    public function findById(int $id): ?User {
-        $stmt = $this->pdo->prepare('SELECT * FROM "User" WHERE id = :id');
-        $stmt->execute(['id' => $id]);
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
-        if($user)
-            return $this->createUserFromRow($user);
-        return null;
+    public function delete(int $id): void {
+        $query = $this->db->prepare("DELETE FROM users WHERE id = :id");
+        $query->bindParam(':id', $id, PDO::PARAM_INT);
+        $query->execute();
     }
 }
