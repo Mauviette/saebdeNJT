@@ -34,9 +34,18 @@
                 <input type="checkbox" class="form-check-input" id="filterGoodies">
                 <label class="form-check-label" for="filterGoodies">Goodies</label>
             </div>
+
             <h4>Fourchette de prix</h4>
-            <input type="range" class="form-range" min="0" max="100" value="100">
-            
+            <div class="price-slider-container">
+                <div class="slider-track"></div>
+                <input type="range" id="minPrice" min="0" max="100" value="0" class="range-slider">
+                <input type="range" id="maxPrice" min="0" max="100" value="100" class="range-slider">
+            </div>
+            <div class="d-flex justify-content-between mt-2">
+                <span id="minPriceValue">0€</span>
+                <span id="maxPriceValue">100€</span>
+            </div>
+
             <div class="mt-4 p-3 border rounded">
                 <h3>Votre Panier</h3>
                 {% for item in cart %}
@@ -49,4 +58,97 @@
         </div>
     </div>
 </div>
+
+<style>
+/* Conteneur de la barre de range */
+.price-slider-container {
+    position: relative;
+    width: 100%;
+    height: 5px;
+    background: #ddd;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+/* Barre colorée entre les deux curseurs */
+.slider-track {
+    position: absolute;
+    height: 5px;
+    background: #000;
+    border-radius: 5px;
+    z-index: 1;
+}
+
+/* Style des curseurs */
+.range-slider {
+    position: absolute;
+    width: 100%;
+    -webkit-appearance: none;
+    appearance: none;
+    background: none;
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* Style visuel des poignées des curseurs */
+.range-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    background: #000;
+    border-radius: 50%;
+    cursor: pointer;
+    pointer-events: all;
+    position: relative;
+    z-index: 3;
+}
+.range-slider::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    background: #000;
+    border-radius: 50%;
+    cursor: pointer;
+    pointer-events: all;
+    position: relative;
+    z-index: 3;
+}
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const minPrice = document.getElementById("minPrice");
+    const maxPrice = document.getElementById("maxPrice");
+    const minPriceValue = document.getElementById("minPriceValue");
+    const maxPriceValue = document.getElementById("maxPriceValue");
+    const sliderTrack = document.querySelector(".slider-track");
+
+    function updatePrices() {
+        let min = parseInt(minPrice.value);
+        let max = parseInt(maxPrice.value);
+
+        // Empêcher le min de dépasser le max
+        if (min > max) {
+            minPrice.value = max - 1;
+            min = max - 1;
+        }
+
+        minPriceValue.textContent = min + "€";
+        maxPriceValue.textContent = max + "€";
+
+        // Calcul de la position des curseurs
+        const minPercent = (min / 100) * 100;
+        const maxPercent = (max / 100) * 100;
+
+        // Mettre à jour la barre colorée entre les curseurs
+        sliderTrack.style.left = minPercent + "%";
+        sliderTrack.style.width = (maxPercent - minPercent) + "%";
+    }
+
+    minPrice.addEventListener("input", updatePrices);
+    maxPrice.addEventListener("input", updatePrices);
+
+    updatePrices(); // Initialiser l'affichage
+});
+</script>
 {% endblock %}
