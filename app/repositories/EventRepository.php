@@ -2,12 +2,16 @@
 require_once './app/core/Repository.php';
 require_once './app/entities/Event.php';
 
-class EventRepository {
-    private $pdo;
+class EventRepository extends Repository {
+
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
     public function findAll(): array
     {
-        $stmt = $this->pdo->query('SELECT * FROM Events');
+        $stmt = $this->pdo->query('SELECT * FROM Evenements');
         $events = [];
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $events[] = $this->createEventFromRow($row);
@@ -17,7 +21,7 @@ class EventRepository {
 
     public function findById(int $id): ?Event
     {
-        $stmt = $this->pdo->prepare('SELECT * FROM Events WHERE id_event = :id');
+        $stmt = $this->pdo->prepare('SELECT * FROM Evenements WHERE id_evenement = :id');
         $stmt->execute(['id' => $id]);
         $event = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($event) {
@@ -29,14 +33,17 @@ class EventRepository {
     public function create(Event $event): bool
     {
         $stmt = $this->pdo->prepare('
-            INSERT INTO Events (title, description, date)
-            VALUES (:title, :description, :date)
+            INSERT INTO Evenements (titre, description, lieu, prix, date_evenement)
+            VALUES (:titre, :description, :lieu, :prix, :date_evenement)
         ');
 
         return $stmt->execute([
-            'title' => $event->getTitle(),
+            'titre' => $event->getTitle(),
             'description' => $event->getDescription(),
-            'date' => $event->getEventDate()
+            'lieu' => $event->getLocation(),
+            'prix' => $event->getPrice(),
+            'date_evenement' => $event->getEventDate()
         ]);
     }
+
 }
