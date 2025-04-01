@@ -1,0 +1,45 @@
+{% extends '_template/base.html.twig' %}
+
+{% block body %}
+<div class="container my-5">
+    <h3 class="text-center">Événements</h3>
+    
+    <div class="row">
+        <!-- Événements à venir -->
+        <div class="col-lg-6">
+            <h5>Événements à venir</h5>
+            <div class="row">
+                {% for event in upcoming_events %}
+                <div class="col-md-4 col-sm-6 mb-3">
+                    <div class="card border-0">
+                        <img src="assets/images/events/{{ event.id }}.jpg" class="card-img-top" alt="{{ event.name }}">
+                        <div class="card-body text-center p-2">
+                            <h6 class="m-0">{{ event.name }}</h6>
+                            <p class="text-muted small">Le {{ event.date | date('d F Y') }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Événements passés -->
+        <div class="col-lg-6">
+            <h5>Événements Passés</h5>
+            <div class="row">
+                {% for event in past_events %}
+                <div class="col-md-4 col-sm-6 mb-3">
+                    <div class="card border-0">
+                        <img src="assets/images/events/{{ event.id }}.jpg" class="card-img-top" alt="{{ event.name }}">
+                        <div class="card-body text-center p-2">
+                            <h6 class="m-0">{{ event.name }}</h6>
+                            <p class="text-muted small">Le {{ event.date | date('d F Y') }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
