@@ -5,7 +5,7 @@ class Event {
                             private ?string $title,
                             private ?string $content,
                             private ?string $place,
-                            private ?\DateTime $date_publication,
+                            private ?\DateTime $date,
                             ) {
 
                             }

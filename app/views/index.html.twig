@@ -5,43 +5,32 @@
     <div class="row gy-4">
         <!-- Section Articles -->
         <div class="col-lg-6">
-            <h4 class="mb-3">Actualités</h4>
-            <div class="container my-5">
-                <div class="row">
-                    <!-- Colonne des actualités (scrollable) -->
-                    <div class="col-md-4 border-end" style="max-height: 500px; overflow-y: auto;">
-                        <div class="list-group">
-                            <a href="?news_id=1" class="list-group-item list-group-item-action">
-                                <h6 class="mb-1">Nouvelle Réforme du Transport Public</h6>
-                                <p class="mb-1 text-muted">Une réforme importante qui transforme le réseau de transports publics.</p>
-                            </a>
-                            <a href="?news_id=2" class="list-group-item list-group-item-action">
-                                <h6 class="mb-1">Le Nouvel Avancement Technologique</h6>
-                                <p class="mb-1 text-muted">Les dernières innovations technologiques en matière de conduite autonome.</p>
-                            </a>
-                            <a href="?news_id=3" class="list-group-item list-group-item-action">
-                                <h6 class="mb-1">Sécurité Publique : Vers une Meilleure Coordination Européenne</h6>
-                                <p class="mb-1 text-muted">La nouvelle politique de défense civile au sein de l'Union Européenne.</p>
-                            </a>
-                            <a href="?news_id=4" class="list-group-item list-group-item-action">
-                                <h6 class="mb-1">Protection des Données Personnelles</h6>
-                                <p class="mb-1 text-muted">Les nouvelles lois sur la protection des données et leur impact.</p>
-                            </a>
-                            <a href="?news_id=5" class="list-group-item list-group-item-action">
-                                <h6 class="mb-1">Lutte contre la Criminalité Transfrontalière</h6>
-                                <p class="mb-1 text-muted">Les actions de l'Union Européenne contre les réseaux criminels internationaux.</p>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Colonne des détails de l'actualité sélectionnée -->
-                    <div class="col-md-8">
-                        <h2>Nouvelle Réforme du Transport Public</h2>
-                        <p class="text-muted">Le 1er avril à 14:30<br> De Jean Dupont</p>
-                        <p>La nouvelle réforme vise à améliorer la qualité et l'accessibilité des transports publics dans toute la région. Elle met l'accent sur l'augmentation de la fréquence des trains, la modernisation des infrastructures et l'intégration de nouvelles technologies pour rendre les trajets plus efficaces et plus écologiques.</p>
-                        <img src="https://via.placeholder.com/800x400" class="img-fluid" alt="Nouvelle Réforme du Transport Public">
-                    </div>
+            <h3>Actualités</h3>
+            <div class="border p-4 my-5">
+            <div class="row">
+                <!-- Colonne des actualités (scrollable) -->
+                <div class="col-md-4 border-end" style="max-height: 500px; overflow-y: auto;">
+                <div class="list-group">
+                    {% for article in articles %}
+                    <a href="?news_id={{ article.id }}" class="list-group-item list-group-item-action {% if article.id == selected_article.id %}bg-secondary text-white{% endif %}">
+                    <h6 class="mb-1">{{ article.title }}</h6>
+                    <p class="mb-1 text-muted">{{ article.content[:50] ~ (article.content|length > 50 ? '...' : '') }}</p>
+                    </a>
+                    {% endfor %}
                 </div>
+                </div>
+
+                <!-- Colonne des détails de l'actualité sélectionnée -->
+                <div class="col-md-8">
+                {% if selected_article %}
+                <h2>{{ selected_article.title }}</h2>
+                <p class="text-muted">Le {{ selected_article.date_publication | date('d F Y à H:i') }}<br> De {{ selected_article.author }}</p>
+                <p>{{ selected_article.content }}</p>
+                {% else %}
+                <p class="text-muted">Veuillez sélectionner une actualité pour afficher les détails.</p>
+                {% endif %}
+                </div>
+            </div>
             </div>
         </div>
 
