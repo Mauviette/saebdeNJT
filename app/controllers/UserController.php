@@ -1,7 +1,6 @@
 <?php
 
 require_once './app/core/Controller.php';
-require_once './app/repositories/UserRepository.php';
 require_once './app/trait/FormTrait.php';
 require_once './app/trait/AuthTrait.php';
 
