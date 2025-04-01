@@ -1,0 +1,59 @@
+{% extends '_template/base.html.twig' %}
+
+{% block body %}
+<div class="container my-5">
+    <h3 class="text-center">Menu Admin</h3>
+    
+    <!-- Boutons d'ajout -->
+    <div class="d-flex justify-content-center my-3">
+        <button class="btn btn-secondary mx-1">Ajouter un article</button>
+        <button class="btn btn-secondary mx-1">Ajouter un événement</button>
+        <button class="btn btn-secondary mx-1">Ajouter un produit</button>
+    </div>
+
+    <!-- Gestion des membres -->
+    <h4>Gestion des membres</h4>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Nom d'utilisateur</th>
+                <th>Email</th>
+                <th>Fonds</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Données vides pour l'instant -->
+        </tbody>
+    </table>
+
+    <!-- Gestion des commandes -->
+    <h4>Gestion des commandes</h4>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Produit</th>
+                <th>Quantité</th>
+                <th>Acheteur</th>
+                <th>Fait ?</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Données vides pour l'instant -->
+        </tbody>
+    </table>
+
+    <!-- Contacts reçus -->
+    <h4>Contacts Reçus</h4>
+    <div class="row">
+        <div class="col-md-4">
+            <ul class="list-group">
+                <!-- Données vides pour l'instant -->
+            </ul>
+        </div>
+        <div class="col-md-8 border p-3">
+            <!-- Données vides pour l'instant -->
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends '_template/base.html.twig' %}
+
+{% block body %}
+<div class="container my-5">
+    <a href="events.php" class="text-primary">Retour aux événements</a>
+    
+    <div class="row mt-3">
+        <div class="col-md-8">
+            <h2>Lazer Game</h2>
+            <p class="text-muted">Le 31 mars 2025 à 20h</p>
+            
+            <img src="/assets/images/events/lazer-game.jpg" class="img-fluid mb-3" alt="Lazer Game">
+            
+            <p class="fw-bold">Prix : 20,00€</p>
+            <button class="btn btn-secondary">Payer</button>
+            
+            <p class="mt-4">Venez participer à une soirée exceptionnelle de Lazer Game ! Défiez vos amis et testez votre adresse dans une arène immersive. Que le meilleur gagne !</p>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="border p-3">
+                <div class="placeholder-image bg-light mb-3" style="width: 100%; height: 150px;"></div>
+                <p>3B rue Charles de Gaulle, Gruchet-Le-Vallase, 76210</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="mt-5">
+        <h4>Commentaires :</h4>
+        <div class="border p-3 bg-light" style="max-height: 300px; overflow-y: auto;">
+            <div class="mb-3 p-2 border rounded bg-white">
+                <p class="fw-bold">De Tibo2792</p>
+                <p>C'était super fun ! J'ai adoré !</p>
+            </div>
+            <div class="mb-3 p-2 border rounded bg-white">
+                <p class="fw-bold">De ChillGuyDu76</p>
+                <p>Une ambiance incroyable, à refaire sans hésitation !</p>
+            </div>
+            <div class="mb-3 p-2 border rounded bg-white">
+                <p class="fw-bold">De GamerX</p>
+                <p>J'ai gagné toutes les parties, qui veut me défier la prochaine fois ? 😎</p>
+            </div>
+            <div class="mb-3 p-2 border rounded bg-white">
+                <p class="fw-bold">De LaserKing</p>
+                <p>Super soirée, mais je pense qu'on pourrait améliorer les équipes pour plus d'équilibre.</p>
+            </div>
+            <div class="mb-3 p-2 border rounded bg-white">
+                <p class="fw-bold">De NoobMaster69</p>
+                <p>Je me suis fait éclater... mais c'était fun 😂</p>
+            </div>
+            <div class="mb-3 p-2 border rounded bg-white">
+                <p class="fw-bold">De ProSniper</p>
+                <p>J'ai adoré l'organisation, hâte du prochain événement !</p>
+            </div>
+            <div class="mb-3 p-2 border rounded bg-white">
+                <p class="fw-bold">De ShadowHunter</p>
+                <p>J’ai trouvé le mode de jeu vraiment original, bravo aux organisateurs !</p>
+            </div>
+        </div>
+        <textarea class="form-control mt-3" placeholder="Ajouter un commentaire..."></textarea>
+    </div>
+</div>
+{% endblock %}
