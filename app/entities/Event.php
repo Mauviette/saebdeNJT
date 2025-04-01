@@ -2,6 +2,7 @@
 class Event {
 
     public function __construct(private ?int $id,
+                            private ?array $users,
                             private ?string $title,
                             private ?string $content,
                             private ?string $place,
@@ -19,6 +20,14 @@ class Event {
         $this->id = $id;
     }
 
+    public function getUsers(): ?array {
+        return $this->users;
+    }
+
+    public function setUsers(?array $users): void {
+        $this->users = $users;
+    }
+    
     public function getTitle(): ?string {
         return $this->title;
     }
