@@ -4,9 +4,9 @@ class User {
     public function __construct(private ?int $id,
                             private ?string $nom,
                             private ?float $fonds,
-                            private ?string $date_publication,
+                            private ?\DateTime $date_publication,
                             private ?string $role,
-                            private ?string $date_adhesion) {
+                            private ?\DateTime $date_adhesion) {
 
                             }
 
@@ -34,11 +34,11 @@ class User {
         $this->fonds = $fonds;
     }
 
-    public function getDatePublication(): ?string {
+    public function getDatePublication(): ?\DateTime {
         return $this->date_publication;
     }
 
-    public function setDatePublication(?string $date_publication): void {
+    public function setDatePublication(?\DateTime $date_publication): void {
         $this->date_publication = $date_publication;
     }
 
@@ -50,11 +50,11 @@ class User {
         $this->role = $role;
     }
 
-    public function getDateAdhesion(): ?string {
+    public function getDateAdhesion(): ?\DateTime {
         return $this->date_adhesion;
     }
 
-    public function setDateAdhesion(?string $date_adhesion): void {
+    public function setDateAdhesion(?\DateTime $date_adhesion): void {
         $this->date_adhesion = $date_adhesion;
     }
 

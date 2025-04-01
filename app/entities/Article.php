@@ -4,7 +4,7 @@ class Article {
     public function __construct(private ?int $id,
                             private ?string $title,
                             private ?string $content,
-                            private ?string $date_publication) {
+                            private ?\DateTime $date_publication) {
 
                             }
 
@@ -32,11 +32,11 @@ class Article {
         $this->content = $content;
     }
 
-    public function getDatePublication(): ?string {
+    public function getDatePublication(): ?\DateTime {
         return $this->date_publication;
     }
 
-    public function setDatePublication(?string $date_publication): void {
+    public function setDatePublication(?\DateTime $date_publication): void {
         $this->date_publication = $date_publication;
     }
 }

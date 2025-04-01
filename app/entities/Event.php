@@ -1,10 +1,11 @@
 <?php
-class Article {
+class Event {
 
     public function __construct(private ?int $id,
                             private ?string $title,
                             private ?string $content,
                             private ?string $place,
+                            private ?\DateTime $date_publication,
                             ) {
 
                             }
@@ -33,11 +34,19 @@ class Article {
         $this->content = $content;
     }
 
-    public function getDatePublication(): ?string {
+    public function getPlace(): ?string {
+        return $this->place;
+    }
+
+    public function setPlace(?string $place): void {
+        $this->place = $place;
+    }
+
+    public function getDatePublication(): ?\DateTime {
         return $this->date_publication;
     }
 
-    public function setDatePublication(?string $date_publication): void {
+    public function setDatePublication(?\DateTime $date_publication): void {
         $this->date_publication = $date_publication;
     }
 }
