@@ -5,26 +5,40 @@ class AuthService {
 
     use AuthTrait;
 
+    public function setUser(User $user): void {
+        if (session_status() == PHP_SESSION_NONE)
+            session_start();
+    
+        $_SESSION['user'] = serialize($user);
+    }
+    
     public function getUser(): ?User {
         if (session_status() == PHP_SESSION_NONE)
             session_start();
     
         $user = $_SESSION['user'] ?? null;
     
-        return ($user instanceof User) ? $user : null;
+        if ($user) {
+            $user = unserialize($user);
+            if ($user instanceof User) {
+                return $user;
+            }
+        }
+        return null;
     }
 
-    public function setUser(User $user): void
-    {
-        if(session_status() == PHP_SESSION_NONE)
+    public function logout(): void {
+        if (session_status() == PHP_SESSION_NONE)
             session_start();
-        $_SESSION['user'] = serialize($user);
-    }
-
-    public function logout(): void
-    {
+        
+        $_SESSION = [];
+    
         session_destroy();
+    
+        header("Location: /index.php");
+        exit();
     }
+    
 
     public function isLoggedIn(): bool {
         if(session_status() == PHP_SESSION_NONE)
