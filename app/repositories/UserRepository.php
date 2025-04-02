@@ -3,62 +3,87 @@ require_once './app/core/Repository.php';
 require_once './app/entities/User.php';
 
 class UserRepository {
-    public function findById(int $id): ?User {
-        $query = $this->db->prepare("SELECT * FROM users WHERE id = :id");
-        $query->bindParam(':id', $id, PDO::PARAM_INT);
-        $query->execute();
-        $data = $query->fetch(PDO::FETCH_ASSOC);
-        if ($data) {
+    private $pdo;
+
+    public function __construct() {
+        $this->pdo = Repository::getInstance()->getPDO();
+    }
+
+    public function createUser(User $user, string $password): bool {
+        $sql = "INSERT INTO Utilisateur (nom, email, mot_de_passe, fond, role, date_adhesion) 
+                VALUES (:nom, :email, :mot_de_passe, :fond, :role, :date_adhesion)";
+        $stmt = $this->pdo->prepare($sql);
+
+        return $stmt->execute([
+            ':nom' => $user->getNom(),
+            ':email' => $user->getEmail(),
+            ':mot_de_passe' => password_hash($password, PASSWORD_BCRYPT),
+            ':fond' => $user->getFonds(),
+            ':role' => $user->getRole(),
+            ':date_adhesion' => $user->getDateAdhesion()->format('Y-m-d')
+        ]);
+    }
+
+    public function getUserById(int $id): ?User {
+        $sql = "SELECT * FROM Utilisateur WHERE id_utilisateur = :id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([':id' => $id]);
+        $row = $stmt->fetch();
+
+        if ($row) {
             return new User(
-                $data['id'],
-                $data['nom'],
-                $data['fonds'],
-                $data['date_publication'],
-                $data['role'],
-                $data['date_adhesion']
+                $row['id_utilisateur'],
+                $row['nom'],
+                $row['fond'],
+                $row['role'],
+                new \DateTime($row['date_adhesion']),
+                $row['email']
             );
         }
+
         return null;
     }
-    public function findAll(): array {
-        $query = $this->db->query("SELECT * FROM users");
-        $users = [];
-        while ($data = $query->fetch(PDO::FETCH_ASSOC)) {
-            $users[] = new User(
-                $data['id'],
-                $data['nom'],
-                $data['fonds'],
-                $data['date_publication'],
-                $data['role'],
-                $data['date_adhesion']
+
+    public function getUserByEmail(string $email): ?User {
+        $sql = "SELECT * FROM Utilisateur WHERE email = :email";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([':email' => $email]);
+        $row = $stmt->fetch();
+
+        if ($row) {
+            return new User(
+                $row['id_utilisateur'],
+                $row['nom'],
+                $row['fond'],
+                $row['role'],
+                new \DateTime($row['date_adhesion']),
+                $row['email']
             );
         }
-        return $users;
+
+        return null;
     }
-    public function save(User $user): void {
-        if ($user->getId() === null) {
-            $query = $this->db->prepare("
-                INSERT INTO users (nom, fonds, date_publication, role, date_adhesion)
-                VALUES (:nom, :fonds, :date_publication, :role, :date_adhesion)
-            ");
-        } else {
-            $query = $this->db->prepare("
-                UPDATE users
-                SET nom = :nom, fonds = :fonds, date_publication = :date_publication, role = :role, date_adhesion = :date_adhesion
-                WHERE id = :id
-            ");
-            $query->bindParam(':id', $user->getId(), PDO::PARAM_INT);
-        }
-        $query->bindParam(':nom', $user->getNom(), PDO::PARAM_STR);
-        $query->bindParam(':fonds', $user->getFonds(), PDO::PARAM_STR);
-        $query->bindParam(':date_publication', $user->getDatePublication(), PDO::PARAM_STR);
-        $query->bindParam(':role', $user->getRole(), PDO::PARAM_STR);
-        $query->bindParam(':date_adhesion', $user->getDateAdhesion(), PDO::PARAM_STR);
-        $query->execute();
+
+    public function updateUser(User $user): bool {
+        $sql = "UPDATE Utilisateur 
+                SET nom = :nom, email = :email, fond = :fond, role = :role, date_adhesion = :date_adhesion 
+                WHERE id_utilisateur = :id";
+        $stmt = $this->pdo->prepare($sql);
+
+        return $stmt->execute([
+            ':id' => $user->getId(),
+            ':nom' => $user->getNom(),
+            ':email' => $user->getEmail(),
+            ':fond' => $user->getFonds(),
+            ':role' => $user->getRole(),
+            ':date_adhesion' => $user->getDateAdhesion()->format('Y-m-d')
+        ]);
     }
-    public function delete(int $id): void {
-        $query = $this->db->prepare("DELETE FROM users WHERE id = :id");
-        $query->bindParam(':id', $id, PDO::PARAM_INT);
-        $query->execute();
+
+    public function deleteUser(int $id): bool {
+        $sql = "DELETE FROM Utilisateur WHERE id_utilisateur = :id";
+        $stmt = $this->pdo->prepare($sql);
+
+        return $stmt->execute([':id' => $id]);
     }
 }

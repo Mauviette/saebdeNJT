@@ -5,7 +5,8 @@ class User {
                             private ?string $nom,
                             private ?float $fonds,
                             private ?string $role,
-                            private ?\DateTime $date_adhesion) {}
+                            private ?\DateTime $date_adhesion,
+                            private ?string $email) {}
 
     public function getId(): ?int {
         return $this->id;
