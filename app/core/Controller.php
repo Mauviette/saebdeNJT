@@ -1,5 +1,7 @@
 <?php
 require_once 'vendor/autoload.php';
+require_once './app/services/AuthService.php';
+
 abstract class Controller {
     protected $viewPath = './app/views/'; // Chemin vers les vues
 
@@ -10,8 +12,11 @@ abstract class Controller {
         $twig = new \Twig\Environment($loader, [
             'cache' => false, // Mettre un dossier ('cache/') en production pour améliorer les performances
         ]);
+        $authService = new AuthService();
+        $twig->addGlobal('isLoggedIn', $authService->isLoggedIn());
+        $data['isLoggedIn'] = $authService->isLoggedIn();
 
-// Rendu du template accueil.twig avec des variables
+        // Rendu du template accueil.twig avec des variables
         echo $twig->render($viewName,$data);
     }
 

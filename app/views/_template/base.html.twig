@@ -32,9 +32,15 @@
                 <li class="nav-item">
                     <a class="nav-link text-white mx-lg-5" href="shop.php">Boutique</a>
                 </li>
+                {% if isLoggedIn %}
+                <li class="nav-item">
+                    <a class="nav-link text-white mx-lg-5" href="profile.php">Mon profil</a>
+                </li>
+                {% else %}
                 <li class="nav-item">
                     <a class="nav-link text-white mx-lg-5" href="login.php">Connexion</a>
                 </li>
+                {% endif %}
             </ul>
         </div>
         <!-- Bouton Toggle ABSOLUMENT tout à droite -->

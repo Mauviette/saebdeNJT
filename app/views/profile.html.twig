@@ -6,11 +6,11 @@
         <div class="card-body text-center">
             <h5 class="card-title">Votre profil</h5>
             <div class="container d-flex justify-content-between align-items-center">
-                <p class="mb-1">Nom d'utilisateur : <strong>Admin</strong></p>
+                <p class="mb-1">Nom d'utilisateur : <strong>{{ user.nom }}</strong></p>
                 <button class="btn btn-sm btn-secondary">Modifier</button>
             </div>
             <div class="mb-3">
-                <p class="mb-1">Email : <strong>BDEAdmin@gmail.com</strong></p>
+                <p class="mb-1">Email : <strong>{{ user.email }}</strong></p>
             </div>
             <div class="mb-3">
                 <label for="notificationSelect" class="form-label">Notifications :</label>
@@ -22,13 +22,15 @@
             </div>
             <hr>
             <div class="mb-3">
-                <p class="mb-1">Vos fonds : <strong>21.10€</strong></p>
+                <p class="mb-1">Vos fonds : <strong>{{ user.fonds|number_format(2, '.', ' ') }}€</strong></p>
                 <button class="btn btn-secondary btn-sm">Ajouter des fonds</button>
             </div>
             <hr>
             <div class="d-grid gap-2">
-                <a href="admin.php" class="btn btn-secondary">Menu Admin</a>
-                <button class="btn btn-danger">Déconnexion</button>
+                {% if user.role == 'admin' %}
+                    <a href="admin.php" class="btn btn-secondary">Menu Admin</a>
+                {% endif %}
+                <a href="/logout" class="btn btn-danger">Déconnexion</a>
             </div>
         </div>
     </div>

@@ -5,11 +5,13 @@ class AuthService {
 
     use AuthTrait;
 
-    public function getUser():?User
-    {
-        if(session_status() == PHP_SESSION_NONE)
+    public function getUser(): ?User {
+        if (session_status() == PHP_SESSION_NONE)
             session_start();
-        return unserialize($_SESSION['user']);
+    
+        $user = $_SESSION['user'] ?? null;
+    
+        return ($user instanceof User) ? $user : null;
     }
 
     public function setUser(User $user): void
@@ -35,7 +37,7 @@ class AuthService {
         $userRepository = new UserRepository();
         $user = $userRepository->getUserByEmail($email);
 
-        if ($user && password_verify($password, $user->getPassword())) {
+        if ($user && $password == $userRepository->getPasswordFromEmail($email)) {
             $this->setUser($user);
             return true;
         }
@@ -66,4 +68,5 @@ class AuthService {
         $userRepository = new UserRepository();
         return $userRepository->deleteUser($id);
     }
+    
 }

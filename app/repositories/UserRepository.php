@@ -86,4 +86,13 @@ class UserRepository {
 
         return $stmt->execute([':id' => $id]);
     }
+
+    public function getPasswordFromEmail(string $email): ?string {
+        $sql = "SELECT mot_de_passe FROM Utilisateur WHERE email = :email";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([':email' => $email]);
+        $row = $stmt->fetch();
+
+        return $row ? $row['mot_de_passe'] : null;
+    }
 }

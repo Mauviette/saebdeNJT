@@ -139,3 +139,6 @@ INSERT INTO Evenements (titre, description, lieu, prix, date_evenement) VALUES
 ('Concert de Musique Live', 'Un concert avec des artistes locaux.', 'Salle de Concert, Strasbourg', 25.00, '2025-12-15'),
 ('Miaulement de groupe', 'Miaou.', 'Salle de Concert, Strasbourg', 25.00, '2025-04-12'),
 ('Anniversaire de Jules', 'Miaou.', 'Salle de Concert, Strasbourg', 25.00, '2025-03-12');
+
+INSERT INTO Utilisateur (nom, email, mot_de_passe, fond, role, date_adhesion) VALUES
+('Jean Dupont', 'jean.dupont@example.com', 'password123', 100.00, 'utilisateur', '2025-01-01');
