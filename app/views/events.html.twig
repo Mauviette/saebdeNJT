@@ -6,38 +6,42 @@
     
     <div class="row">
         <!-- Événements à venir -->
-        <div class="col-lg-6">
-            <h5>Événements à venir</h5>
-            <div class="row">
-                {% for event in upcoming_events %}
-                <div class="col-md-4 col-sm-6 mb-3">
-                    <div class="card border-0">
-                        <img src="assets/images/events/{{ event.id }}.jpg" class="card-img-top" alt="{{ event.name }}">
-                        <div class="card-body text-center p-2">
-                            <h6 class="m-0">{{ event.name }}</h6>
-                            <p class="text-muted small">Le {{ event.date | date('d F Y') }}</p>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
+        <div class="col-lg-12">
+            <h4 class="mb-3">Événements à venir</h4>
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for event in events_upcoming %}
+            <div class="col mb-4">
+            <div class="card">
+            <div class="ratio ratio-16x9">
+                <img src="assets/images/events/{{ event.id }}.jpg" class="card-img-top object-fit-cover" alt="{{ event.name }}">
+            </div>
+            <div class="card-body text-center">
+                <h6 class="card-title">{{ event.title }}</h6>
+                <p class="text-muted">Le {{ event.date | date('d F Y') }}</p>
+            </div>
+            </div>
+            </div>
+            {% endfor %}
             </div>
         </div>
 
         <!-- Événements passés -->
-        <div class="col-lg-6">
-            <h5>Événements Passés</h5>
-            <div class="row">
-                {% for event in past_events %}
-                <div class="col-md-4 col-sm-6 mb-3">
-                    <div class="card border-0">
-                        <img src="assets/images/events/{{ event.id }}.jpg" class="card-img-top" alt="{{ event.name }}">
-                        <div class="card-body text-center p-2">
-                            <h6 class="m-0">{{ event.name }}</h6>
-                            <p class="text-muted small">Le {{ event.date | date('d F Y') }}</p>
-                        </div>
-                    </div>
+        <div class="col-lg-12">
+            <h4 class="mb-3">Événements Passés</h4>
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for event in events_passed %}
+            <div class="col mb-4">
+            <div class="card">
+                <div class="ratio ratio-16x9">
+                <img src="assets/images/events/{{ event.id }}.jpg" class="card-img-top object-fit-cover" alt="{{ event.name }}">
                 </div>
-                {% endfor %}
+                <div class="card-body text-center">
+                <h6 class="card-title">{{ event.title }}</h6>
+                <p class="text-muted">Le {{ event.date | date('d F Y') }}</p>
+                </div>
+            </div>
+            </div>
+            {% endfor %}
             </div>
         </div>
     </div>
