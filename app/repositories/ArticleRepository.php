@@ -48,14 +48,16 @@ class ArticleRepository {
         return null;
     }
 
-    public function createArticle(Article $article): bool {
+    public function createArticle(String $title, String $content, DateTime $publication_date): bool {
         $query = "INSERT INTO Articles (titre, contenu, date_publication) 
                   VALUES (:title, :content, :publication_date)";
         $stmt = $this->pdo->prepare($query);
-        $stmt->bindValue(':title', $article->getTitle(), PDO::PARAM_STR);
-        $stmt->bindValue(':content', $article->getContent(), PDO::PARAM_STR);
-        $stmt->bindValue(':publication_date', $article->getDatePublication()->format('Y-m-d H:i:s'), PDO::PARAM_STR);
+        $stmt->bindValue(':title', $title, PDO::PARAM_STR);
+        $stmt->bindValue(':content', $content, PDO::PARAM_STR);
+        $stmt->bindValue(':publication_date', $publication_date->format('Y-m-d H:i:s'), PDO::PARAM_STR);
 
+        error_log(print_r($stmt->errorInfo(), true));
+        
         return $stmt->execute();
     }
 
