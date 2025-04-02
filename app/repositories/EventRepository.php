@@ -31,6 +31,30 @@ class EventRepository {
         return $events;
     }
 
+    public function findByTitle(string $title): ?Event {
+        $query = "SELECT * FROM Evenements WHERE titre = :title";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->bindParam(':title', $title, PDO::PARAM_STR);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($row) {
+            return new Event(
+                $row['id_evenement'],
+                null,
+                $row['titre'],
+                $row['description'],
+                $row['lieu'],
+                new \DateTime($row['date_evenement']),
+                (float)$row['prix']
+            );
+        }
+
+        return null;
+    }
+
+    
+
     public function findById(int $id): ?Event {
         $query = "SELECT * FROM Evenements WHERE id_evenement = :id";
         $stmt = $this->pdo->prepare($query);
@@ -53,13 +77,11 @@ class EventRepository {
         return null;
     }
 
- 
-
     public function updateEvent(Event $event): bool {
         $query = "UPDATE Evenements 
                   SET titre = :title, description = :content, lieu = :place, prix = :price, date_evenement = :event_date 
                   WHERE id_evenement = :id";
-        $stmt = $this->db->prepare($query);
+        $stmt = $this->pdo->prepare($query);
         $stmt->bindValue(':id', $event->getId(), PDO::PARAM_INT);
         $stmt->bindValue(':title', $event->getTitle(), PDO::PARAM_STR);
         $stmt->bindValue(':content', $event->getContent(), PDO::PARAM_STR);
@@ -72,11 +94,12 @@ class EventRepository {
 
     public function deleteEvent(int $id): bool {
         $query = "DELETE FROM Evenements WHERE id_evenement = :id";
-        $stmt = $this->db->prepare($query);
+        $stmt = $this->pdo->prepare($query);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
 
         return $stmt->execute();
     }
+
     public function createEvent(string $title, string $content, string $place, \DateTime $eventDate, float $price): bool {
         $query = "INSERT INTO Evenements (titre, description, lieu, date_evenement, prix) 
                   VALUES (:title, :content, :place, :event_date, :price)";

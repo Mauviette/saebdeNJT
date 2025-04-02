@@ -4,26 +4,30 @@
 <div class="container my-5">
 <a href="admin.php" class="btn btn-link">← Retour au menu admin</a>
     <h3 class="text-center">Ajout d'événement</h3>
-    <form method="POST" action="/add-event" enctype="multipart/form-data">
+    <form method="POST" action="" enctype="multipart/form-data">
         <div class="mb-3">
             <label for="subject" class="form-label">Sujet :</label>
             <input type="text" class="form-control" id="subject" name="subject" placeholder="Entrez le sujet" required>
         </div>
         <div class="mb-3">
-            <label for="content" class="form-label">Contenu :</label>
+            <label for="content" class="form-label">Description :</label>
             <textarea class="form-control" id="content" name="content" rows="5" placeholder="Entrez le contenu" required></textarea>
-        </div>
-        <div class="mb-3">
-            <label for="eventImage" class="form-label">Image de l'événement :</label>
-            <input type="file" class="form-control" id="eventImage" name="eventImage">
         </div>
         <div class="mb-3">
             <label for="address" class="form-label">Adresse :</label>
             <input type="text" class="form-control" id="address" name="address" placeholder="Entrez l'adresse" required>
         </div>
         <div class="mb-3">
-            <label for="locationImage" class="form-label">Image du lieu :</label>
-            <input type="file" class="form-control" id="locationImage" name="locationImage">
+            <label for="eventImage" class="form-label">Image de l'événement :</label>
+            <input type="file" class="form-control" id="eventImage" name="eventImage">
+        </div>
+        <div class="mb-3">
+            <label for="date" class="form-label">Date de l'évenement :</label>
+            <input type="date" class="form-control" id="date" name="date" required/>
+        </div>
+        <div class="mb-3">
+            <label for="price" class="form-label">Prix :</label>
+            <input type="number" class="form-control" id="price" name="price" required/>
         </div>
         <div class="d-grid">
             <button type="submit" class="btn btn-secondary">Envoyer</button>
