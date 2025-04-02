@@ -2,48 +2,91 @@
 require_once './app/core/Repository.php';
 require_once './app/entities/Event.php';
 
-class EventRepository extends Repository {
+class EventRepository {
+    private $pdo;
 
-    public function __construct()
-    {
-        parent::__construct();
+    public function __construct() {
+        $this->pdo = Repository::getInstance()->getPDO();
     }
 
-    public function findAll(): array
-    {
-        $stmt = $this->pdo->query('SELECT * FROM Evenements');
+    public function findAll(): array {
+        $query = "SELECT * FROM Evenements";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
         $events = [];
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $events[] = $this->createEventFromRow($row);
+        foreach ($results as $row) {
+            $events[] = new Event(
+                $row['id_evenement'],
+                null, //Ajouter les utilisateurs
+                $row['titre'],
+                $row['description'],
+                $row['lieu'],
+                new \DateTime($row['date_evenement']),
+                (float)$row['prix']
+            );
         }
+
         return $events;
     }
 
-    public function findById(int $id): ?Event
-    {
-        $stmt = $this->pdo->prepare('SELECT * FROM Evenements WHERE id_evenement = :id');
-        $stmt->execute(['id' => $id]);
-        $event = $stmt->fetch(PDO::FETCH_ASSOC);
-        if ($event) {
-            return $this->createEventFromRow($event);
+    public function findById(int $id): ?Event {
+        $query = "SELECT * FROM Evenements WHERE id_evenement = :id";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($row) {
+            return new Event(
+                $row['id_evenement'],
+                null,
+                $row['titre'],
+                $row['description'],
+                $row['lieu'],
+                new \DateTime($row['date_evenement']),
+                (float)$row['prix']
+            );
         }
+
         return null;
     }
 
-    public function create(Event $event): bool
-    {
-        $stmt = $this->pdo->prepare('
-            INSERT INTO Evenements (titre, description, lieu, prix, date_evenement)
-            VALUES (:titre, :description, :lieu, :prix, :date_evenement)
-        ');
+    public function createEvent(Event $event): bool {
+        $query = "INSERT INTO Evenements (titre, description, lieu, prix, date_evenement) 
+                  VALUES (:title, :content, :place, :price, :event_date)";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(':title', $event->getTitle(), PDO::PARAM_STR);
+        $stmt->bindValue(':content', $event->getContent(), PDO::PARAM_STR);
+        $stmt->bindValue(':place', $event->getPlace(), PDO::PARAM_STR);
+        $stmt->bindValue(':price', $event->getPrice(), PDO::PARAM_STR);
+        $stmt->bindValue(':event_date', $event->getDate()->format('Y-m-d'), PDO::PARAM_STR);
 
-        return $stmt->execute([
-            'titre' => $event->getTitle(),
-            'description' => $event->getDescription(),
-            'lieu' => $event->getLocation(),
-            'prix' => $event->getPrice(),
-            'date_evenement' => $event->getEventDate()
-        ]);
+        return $stmt->execute();
+    }
+
+    public function updateEvent(Event $event): bool {
+        $query = "UPDATE Evenements 
+                  SET titre = :title, description = :content, lieu = :place, prix = :price, date_evenement = :event_date 
+                  WHERE id_evenement = :id";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(':id', $event->getId(), PDO::PARAM_INT);
+        $stmt->bindValue(':title', $event->getTitle(), PDO::PARAM_STR);
+        $stmt->bindValue(':content', $event->getContent(), PDO::PARAM_STR);
+        $stmt->bindValue(':place', $event->getPlace(), PDO::PARAM_STR);
+        $stmt->bindValue(':price', $event->getPrice(), PDO::PARAM_STR);
+        $stmt->bindValue(':event_date', $event->getDate()->format('Y-m-d'), PDO::PARAM_STR);
+
+        return $stmt->execute();
+    }
+
+    public function deleteEvent(int $id): bool {
+        $query = "DELETE FROM Evenements WHERE id_evenement = :id";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+
+        return $stmt->execute();
     }
 
 }
