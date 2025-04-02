@@ -33,6 +33,8 @@ class HomeController extends Controller
         }
     });
 
+    $articles = array_reverse($articles);
+
     $news_id = $_GET['news_id'] ?? null;
     $selected_article = null;
 
