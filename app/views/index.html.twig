@@ -41,6 +41,7 @@
             <div class="row gy-3">
             {% for event in events|slice(0, 4) %}
             <div class="col-6 mb-4">
+            <a href="/event.php?view={{ event.id }}">
             <div class="card">
                 <div class="ratio ratio-16x9">
                 <img src="assets/images/events/{{ event.id }}.jpg" class="card-img-top object-fit-cover" alt="{{ event.name }}">
@@ -50,6 +51,7 @@
                 <p class="text-muted">Le {{ event.date | date('d F Y') }}</p>
                 </div>
             </div>
+            </a>
             </div>
             {% endfor %}
             </div>
