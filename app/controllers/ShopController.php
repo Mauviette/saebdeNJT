@@ -13,14 +13,6 @@ class ShopController extends Controller {
     {
         $items = (new ItemRepository())->findAll();
     
-        $this->view('shop.html.twig',[
-            'title' => 'Le site du BDE',
-            'events_upcoming' => array_filter($events, function ($event) {
-                return $event->getDate() >= new DateTime();
-            }),
-            'events_passed' => array_filter($events, function ($event) {
-                return $event->getDate() < new DateTime();
-            })
-        ]);
-       }
+        $this->view('shop.html.twig');
+    }
 }
