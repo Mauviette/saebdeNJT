@@ -19,6 +19,20 @@ class HomeController extends Controller
     $events = (new EventRepository())->findAll();
     $articles = (new ArticleRepository())->findAll();
 
+    usort($events, function ($a, $b) {
+        $now = new DateTime();
+        $dateA = $a->getDate();
+        $dateB = $b->getDate();
+
+        if ($dateA >= $now && $dateB < $now) {
+            return -1;
+        } elseif ($dateA < $now && $dateB >= $now) {
+            return 1;
+        } else {
+            return $dateA <=> $dateB;
+        }
+    });
+
     $news_id = $_GET['news_id'] ?? null;
     $selected_article = null;
 

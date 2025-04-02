@@ -118,13 +118,15 @@ INSERT INTO Articles (titre, contenu, date_publication) VALUES
 ('Progrès dans l''intelligence artificielle', 'Une nouvelle IA est capable de composer des symphonies dignes des plus grands compositeurs.', NOW());
 
 INSERT INTO Evenements (titre, description, lieu, prix, date_evenement) VALUES
-('Soirée Laser Game', 'Une soirée amusante de laser game entre amis.', 'Laser Game Arena, Paris', 20.00, '2023-11-15'),
-('Bowling Night', 'Participez à une soirée bowling avec des prix à gagner.', 'Bowling Center, Lyon', 15.00, '2023-11-20'),
-('Escape Game Challenge', 'Résolvez des énigmes pour vous échapper en équipe.', 'Escape Room, Marseille', 25.00, '2023-12-05'),
-('Tournoi de Karting', 'Compétition de karting avec des trophées pour les gagnants.', 'Karting Club, Toulouse', 30.00, '2023-12-10'),
-('Soirée Cinéma en Plein Air', 'Projection de films sous les étoiles.', 'Parc Central, Bordeaux', 10.00, '2023-11-25'),
-('Atelier de Cuisine', 'Apprenez à cuisiner des plats délicieux avec un chef.', 'Cuisine Studio, Lille', 50.00, '2023-12-01'),
-('Randonnée en Montagne', 'Une journée de randonnée avec des guides expérimentés.', 'Alpes, Grenoble', 0.00, '2023-11-18'),
-('Soirée Jeux de Société', 'Une soirée conviviale autour de jeux de société.', 'Café Ludique, Nantes', 5.00, '2023-11-22'),
-('Cours de Yoga en Plein Air', 'Séance de yoga pour tous les niveaux.', 'Plage de Nice', 10.00, '2023-11-30'),
-('Concert de Musique Live', 'Un concert avec des artistes locaux.', 'Salle de Concert, Strasbourg', 25.00, '2023-12-15');
+('Soirée Laser Game', 'Une soirée amusante de laser game entre amis.', 'Laser Game Arena, Paris', 20.00, '2025-11-15'),
+('Bowling Night', 'Participez à une soirée bowling avec des prix à gagner.', 'Bowling Center, Lyon', 15.00, '2025-11-20'),
+('Escape Game Challenge', 'Résolvez des énigmes pour vous échapper en équipe.', 'Escape Room, Marseille', 25.00, '2025-12-05'),
+('Tournoi de Karting', 'Compétition de karting avec des trophées pour les gagnants.', 'Karting Club, Toulouse', 30.00, '2025-12-10'),
+('Soirée Cinéma en Plein Air', 'Projection de films sous les étoiles.', 'Parc Central, Bordeaux', 10.00, '2025-11-25'),
+('Atelier de Cuisine', 'Apprenez à cuisiner des plats délicieux avec un chef.', 'Cuisine Studio, Lille', 50.00, '2025-12-01'),
+('Randonnée en Montagne', 'Une journée de randonnée avec des guides expérimentés.', 'Alpes, Grenoble', 0.00, '2025-11-18'),
+('Soirée Jeux de Société', 'Une soirée conviviale autour de jeux de société.', 'Café Ludique, Nantes', 5.00, '2025-11-22'),
+('Cours de Yoga en Plein Air', 'Séance de yoga pour tous les niveaux.', 'Plage de Nice', 10.00, '2025-11-30'),
+('Concert de Musique Live', 'Un concert avec des artistes locaux.', 'Salle de Concert, Strasbourg', 25.00, '2025-12-15'),
+('Miaulement de groupe', 'Miaou.', 'Salle de Concert, Strasbourg', 25.00, '2025-04-12'),
+('Anniversaire de Jules', 'Miaou.', 'Salle de Concert, Strasbourg', 25.00, '2025-03-12');
