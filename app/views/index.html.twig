@@ -9,7 +9,7 @@
             <div class="border p-4 flex-grow-1">
             <div class="row gy-3">
                 <!-- Colonne des actualités (scrollable) -->
-                <div class="col-md-4 border-end" style="max-height: 500px; overflow-y: auto;">
+                <div class="col-md-4 border-end" style="max-height: 650px; overflow-y: auto;">
                 <div class="list-group">
                     {% for article in articles %}
                     <a href="?news_id={{ article.id }}" class="list-group-item list-group-item-action {% if article.id == selected_article.id %}bg-secondary text-white{% endif %}">
@@ -39,20 +39,22 @@
             <h3>Événements</h3>
             <div class="border p-4 flex-grow-1">
             <div class="row gy-3">
-                {% for event in events|slice(0, 4) %}
-                <div class="col-6 mb-4">
-                <div class="card">
-                    <img src="assets/images/events/{{ event.id }}.jpg" class="card-img-top" alt="{{ event.name }}">
-                    <div class="card-body text-center">
-                    <h6 class="card-title">{{ event.title }}</h6>
-                    <p class="text-muted">Le {{ event.date | date('d F Y') }}</p>
-                    </div>
+            {% for event in events|slice(0, 4) %}
+            <div class="col-6 mb-4">
+            <div class="card">
+                <div class="ratio ratio-16x9">
+                <img src="assets/images/events/{{ event.id }}.jpg" class="card-img-top object-fit-cover" alt="{{ event.name }}">
                 </div>
+                <div class="card-body text-center">
+                <h6 class="card-title">{{ event.title }}</h6>
+                <p class="text-muted">Le {{ event.date | date('d F Y') }}</p>
                 </div>
-                {% endfor %}
+            </div>
+            </div>
+            {% endfor %}
             </div>
             <div class="text-center mt-3">
-                <a href="events.php" class="btn btn-dark">Tous les événements</a>
+            <a href="events.php" class="btn btn-dark">Tous les événements</a>
             </div>
             </div>
         </div>
