@@ -14,14 +14,36 @@
                             <h5 class="card-title">{{ item.name }}</h5>
                             <p class="card-text">{{ item.price }}€</p>
                             <div class="d-flex justify-content-center">
-                                <button class="btn btn-outline-secondary btn-sm">-</button>
-                                <span class="mx-2">{{ item.quantity }}</span>
-                                <button class="btn btn-outline-secondary btn-sm">+</button>
+                                <button class="btn btn-outline-secondary btn-sm" onclick="decreaseQuantity('{{ item.id }}')">-</button>
+                                <span class="mx-2" id="quantity-{{ item.id }}">0</span>
+                                <button class="btn btn-outline-secondary btn-sm" onclick="increaseQuantity('{{ item.id }}')">+</button>
                             </div>
                         </div>
                     </div>
                 </div>
                 {% endfor %}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const quantities = {};
+
+        function updateQuantityDisplay(itemId) {
+            const quantityElement = document.getElementById(`quantity-${itemId}`);
+            quantityElement.textContent = quantities[itemId] || 0;
+        }
+
+        window.increaseQuantity = function(itemId) {
+            if (!quantities[itemId]) quantities[itemId] = 0;
+            quantities[itemId]++;
+            updateQuantityDisplay(itemId);
+        };
+
+        window.decreaseQuantity = function(itemId) {
+            if (!quantities[itemId]) quantities[itemId] = 0;
+            if (quantities[itemId] > 0) quantities[itemId]--;
+            updateQuantityDisplay(itemId);
+        };
+    });
+</script>
             </div>
         </div>
         <div class="col-md-4">
