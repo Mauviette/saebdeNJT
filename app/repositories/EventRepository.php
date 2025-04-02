@@ -77,16 +77,15 @@ class EventRepository {
 
         return $stmt->execute();
     }
-
-    public function createEvent(Event $event): bool {
+    public function createEvent(string $title, string $content, string $place, \DateTime $eventDate, float $price): bool {
         $query = "INSERT INTO Evenements (titre, description, lieu, date_evenement, prix) 
                   VALUES (:title, :content, :place, :event_date, :price)";
-        $stmt = $this->db->prepare($query);
-        $stmt->bindValue(':title', $event->getTitle(), PDO::PARAM_STR);
-        $stmt->bindValue(':content', $event->getContent(), PDO::PARAM_STR);
-        $stmt->bindValue(':place', $event->getPlace(), PDO::PARAM_STR);
-        $stmt->bindValue(':event_date', $event->getDate()->format('Y-m-d'), PDO::PARAM_STR);
-        $stmt->bindValue(':price', $event->getPrice(), PDO::PARAM_STR);
+        $stmt = $this->pdo->prepare($query);
+        $stmt->bindValue(':title', $title, PDO::PARAM_STR);
+        $stmt->bindValue(':content', $content, PDO::PARAM_STR);
+        $stmt->bindValue(':place', $place, PDO::PARAM_STR);
+        $stmt->bindValue(':event_date', $eventDate->format('Y-m-d'), PDO::PARAM_STR);
+        $stmt->bindValue(':price', $price, PDO::PARAM_STR);
 
         return $stmt->execute();
     }
