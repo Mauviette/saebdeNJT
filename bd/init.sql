@@ -42,6 +42,7 @@ CREATE TABLE Produits (
     Description VARCHAR(1000),
     Prix DECIMAL(10,2) NOT NULL,
     stock INT NOT NULL
+    Category VARCHAR(50) NOT NULL CHECK (Category IN ('Vêtements', 'Goodies'))
 );
 
 CREATE TABLE Articles (
@@ -143,9 +144,12 @@ INSERT INTO Evenements (titre, description, lieu, prix, date_evenement) VALUES
 INSERT INTO Utilisateur (nom, email, mot_de_passe, fond, role, date_adhesion) VALUES
 ('Jean Dupont', 'jean.dupont@example.com', 'password123', 100.00, 'utilisateur', '2025-01-01');
 
-INSERT INTO Produits (nom_Prod, Description, Prix, stock) VALUES
-('Produit A', 'Description du produit A', 10.00, 100),
-('Produit B', 'Description du produit B', 20.00, 50),
-('Produit C', 'Description du produit C', 15.00, 75),
-('Produit D', 'Description du produit D', 30.00, 20),
-('Produit E', 'Description du produit E', 25.00, 10);
+INSERT INTO Produits (nom_Prod, Description, Prix, stock, Category) VALUES
+('T-shirt', 'T-shirt en coton bio', 15.00, 100, 'Vêtements'),
+('Mug', 'Mug en céramique', 10.00, 50, 'Goodies'),
+('Sweatshirt', 'Sweatshirt en polaire', 30.00, 75, 'Vêtements'),
+('Casquette', 'Casquette en coton', 12.00, 200, 'Goodies'),
+('Sac à dos', 'Sac à dos en toile', 40.00, 30, 'Vêtements'),
+('Porte-clés', 'Porte-clés en métal', 5.00, 150, 'Goodies'),
+('Veste imperméable', 'Veste légère et imperméable', 60.00, 20, 'Vêtements'),
+('Bouteille isotherme', 'Bouteille en acier inoxydable', 25.00, 80, 'Goodies');
