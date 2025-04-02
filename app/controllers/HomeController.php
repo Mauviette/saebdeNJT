@@ -16,8 +16,8 @@ class HomeController extends Controller
 
    public function index()
    {
-    //$events = (new EventRepository())->findAll();
-    //$articles = (new ArticleRepository())->findAll();
+    $events = (new EventRepository())->findAll();
+    $articles = (new ArticleRepository())->findAll();
 
     $news_id = $_GET['news_id'] ?? null;
     $selected_article = null;

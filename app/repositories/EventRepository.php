@@ -11,7 +11,7 @@ class EventRepository {
 
     public function findAll(): array {
         $query = "SELECT * FROM Evenements";
-        $stmt = $this->db->prepare($query);
+        $stmt = $this->pdo->prepare($query);
         $stmt->execute();
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
