@@ -8,6 +8,7 @@ DROP TABLE IF EXISTS Est_Envoye_Sur CASCADE;
 DROP TABLE IF EXISTS Utilisateur CASCADE;
 DROP TABLE IF EXISTS Evenements CASCADE;
 DROP TABLE IF EXISTS Commande CASCADE;
+DROP TABLE IF EXISTS Commentaires CASCADE;
 DROP TABLE IF EXISTS Produits CASCADE;
 
 
@@ -38,11 +39,11 @@ CREATE TABLE Commande (
 
 CREATE TABLE Produits (
     id_produit SERIAL PRIMARY KEY,
-    nom_Prod VARCHAR(25) NOT NULL,
-    Description VARCHAR(1000),
-    Prix DECIMAL(10,2) NOT NULL,
-    stock INT NOT NULL
-    Category VARCHAR(50) NOT NULL CHECK (Category IN ('Vêtements', 'Goodies'))
+    nom_prod VARCHAR(25) NOT NULL,
+    description VARCHAR(1000),
+    prix DECIMAL(10,2) NOT NULL,
+    stock INT NOT NULL,
+    category VARCHAR(50) NOT NULL CHECK (category IN ('Vêtements', 'Goodies'))
 );
 
 CREATE TABLE Articles (
@@ -142,9 +143,11 @@ INSERT INTO Evenements (titre, description, lieu, prix, date_evenement) VALUES
 ('Anniversaire de Jules', 'Miaou.', 'Salle de Concert, Strasbourg', 25.00, '2025-03-12');
 
 INSERT INTO Utilisateur (nom, email, mot_de_passe, fond, role, date_adhesion) VALUES
-('Jean Dupont', 'jean.dupont@example.com', 'password123', 100.00, 'utilisateur', '2025-01-01');
+('Jean Dupont', 'jean.dupont@example.com', 'password123', 100.00, 'utilisateur', '2025-01-01'),
+('Marie Curie', 'marie.curie@example.com', 'securepass456', 200.00, 'utilisateur_adherent', '2025-02-15'),
+('Albert Einstein', 'albert.einstein@example.com', 'relativity789', 300.00, 'admin', '2025-03-10');
 
-INSERT INTO Produits (nom_Prod, Description, Prix, stock, Category) VALUES
+INSERT INTO Produits (nom_prod, description, prix, stock, category) VALUES
 ('T-shirt', 'T-shirt en coton bio', 15.00, 100, 'Vêtements'),
 ('Mug', 'Mug en céramique', 10.00, 50, 'Goodies'),
 ('Sweatshirt', 'Sweatshirt en polaire', 30.00, 75, 'Vêtements');
