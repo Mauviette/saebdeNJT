@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS Participe CASCADE;
+DROP TABLE IF EXISTS Articles CASCADE;
 DROP TABLE IF EXISTS Demande CASCADE;
 DROP TABLE IF EXISTS A_Pour_Produit CASCADE;
 DROP TABLE IF EXISTS Poste CASCADE;
@@ -47,10 +48,16 @@ CREATE TABLE Articles (
     id_article SERIAL PRIMARY KEY,
     titre VARCHAR(255) NOT NULL,
     contenu TEXT NOT NULL,
-    date_publication TIMESTAMP NOT NULL
+    date_publication DATE NOT NULL
 );
 
--- Removed duplicate table creation for Commentaires
+CREATE TABLE Commentaires (
+    id_commentaire SERIAL PRIMARY KEY,
+    id_article INT NOT NULL,
+    contenu TEXT NOT NULL,
+    date_publication TIMESTAMP NOT NULL,
+    FOREIGN KEY (id_article) REFERENCES Articles(id_article) ON DELETE CASCADE
+);
 
 -- Relations
 
@@ -106,16 +113,16 @@ CREATE TABLE Est_Envoye_Sur (
 
 -- Exemples de données
 INSERT INTO Articles (titre, contenu, date_publication) VALUES
-('Découverte d''une nouvelle exoplanète', 'Les astronomes ont découvert une exoplanète potentiellement habitable à 12 années-lumière de la Terre.', NOW()),
-('Avancée majeure dans la lutte contre le cancer', 'Des chercheurs ont mis au point un traitement révolutionnaire qui réduit les tumeurs de 80% en quelques semaines.', NOW()),
-('Lancement d''une voiture électrique révolutionnaire', 'Une startup a dévoilé une voiture électrique avec une autonomie de 1000 km et une recharge en 5 minutes.', NOW()),
-('Record mondial de vitesse en avion', 'Un avion expérimental a battu le record de vitesse en atteignant Mach 10.', NOW()),
-('Découverte d''une cité perdue', 'Des archéologues ont découvert une cité perdue datant de 3000 ans dans la jungle amazonienne.', NOW()),
-('Progrès dans l''intelligence artificielle', 'Une nouvelle IA est capable de composer des symphonies dignes des plus grands compositeurs.', NOW()),
-('Mission réussie sur Mars', 'Un rover a découvert des traces d''eau liquide sur Mars, relançant les espoirs de trouver de la vie.', NOW()),
-('Invention d''un matériau ultra-résistant', 'Des scientifiques ont créé un matériau 10 fois plus résistant que l''acier et 5 fois plus léger.', NOW()),
-('Découverte d''une nouvelle espèce marine', 'Une expédition sous-marine a révélé une espèce de poisson bioluminescent inconnue jusqu''à présent.', NOW()),
-('Progrès dans l''intelligence artificielle', 'Une nouvelle IA est capable de composer des symphonies dignes des plus grands compositeurs.', NOW());
+('Découverte d''une nouvelle exoplanète', 'Les astronomes ont découvert une exoplanète potentiellement habitable à 12 années-lumière de la Terre.', '2025-01-15'),
+('Avancée majeure dans la lutte contre le cancer', 'Des chercheurs ont mis au point un traitement révolutionnaire qui réduit les tumeurs de 80% en quelques semaines.', '2025-02-20'),
+('Lancement d''une voiture électrique révolutionnaire', 'Une startup a dévoilé une voiture électrique avec une autonomie de 1000 km et une recharge en 5 minutes.', '2025-03-10'),
+('Record mondial de vitesse en avion', 'Un avion expérimental a battu le record de vitesse en atteignant Mach 10.', '2025-04-05'),
+('Découverte d''une cité perdue', 'Des archéologues ont découvert une cité perdue datant de 3000 ans dans la jungle amazonienne.', '2025-05-12'),
+('Progrès dans l''intelligence artificielle', 'Une nouvelle IA est capable de composer des symphonies dignes des plus grands compositeurs.', '2025-06-18'),
+('Mission réussie sur Mars', 'Un rover a découvert des traces d''eau liquide sur Mars, relançant les espoirs de trouver de la vie.', '2025-07-22'),
+('Invention d''un matériau ultra-résistant', 'Des scientifiques ont créé un matériau 10 fois plus résistant que l''acier et 5 fois plus léger.', '2025-08-30'),
+('Découverte d''une nouvelle espèce marine', 'Une expédition sous-marine a révélé une espèce de poisson bioluminescent inconnue jusqu''à présent.', '2025-09-14'),
+('Progrès dans l''intelligence artificielle', 'Une nouvelle IA est capable de composer des symphonies dignes des plus grands compositeurs.', '2025-10-01');
 
 INSERT INTO Evenements (titre, description, lieu, prix, date_evenement) VALUES
 ('Soirée Laser Game', 'Une soirée amusante de laser game entre amis.', 'Laser Game Arena, Paris', 20.00, '2025-11-15'),

@@ -42,6 +42,7 @@ class ArticleRepository {
                 $row['contenu'],
                 new \DateTime($row['date_publication'])
             );
+            
         }
 
         return null;

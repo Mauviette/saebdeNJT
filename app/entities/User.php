@@ -4,11 +4,8 @@ class User {
     public function __construct(private ?int $id,
                             private ?string $nom,
                             private ?float $fonds,
-                            private ?\DateTime $date_publication,
                             private ?string $role,
-                            private ?\DateTime $date_adhesion) {
-
-                            }
+                            private ?\DateTime $date_adhesion) {}
 
     public function getId(): ?int {
         return $this->id;
