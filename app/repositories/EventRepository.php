@@ -33,7 +33,7 @@ class EventRepository {
 
     public function findById(int $id): ?Event {
         $query = "SELECT * FROM Evenements WHERE id_evenement = :id";
-        $stmt = $this->db->prepare($query);
+        $stmt = $this->pdo->prepare($query);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);

@@ -59,6 +59,8 @@ CREATE TABLE Commentaires (
     FOREIGN KEY (id_article) REFERENCES Articles(id_article) ON DELETE CASCADE
 );
 
+
+
 -- Relations
 
 CREATE TABLE Participe (
