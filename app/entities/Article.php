@@ -2,6 +2,7 @@
 class Article {
 
     public function __construct(private ?int $id,
+                            private ?int $user_id,
                             private ?string $title,
                             private ?string $content,
                             private ?\DateTime $date_publication) {
@@ -38,6 +39,10 @@ class Article {
 
     public function setDatePublication(?\DateTime $date_publication): void {
         $this->date_publication = $date_publication;
+    }
+
+    public function getUserId(): ?int {
+        return $this->user_id;
     }
 }
 ?>

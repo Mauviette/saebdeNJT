@@ -3,10 +3,14 @@
 require_once './app/core/Controller.php';
 require_once './app/repositories/ArticleRepository.php';
 require_once './app/entities/Article.php';
+require_once './app/services/AuthService.php';
 
 
 class AddArticleController extends Controller {
     public function add() {
+        $authService = new AuthService();
+        $user = $authService->getUser();
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $title = $_POST['title'] ?? null;
             $content = $_POST['content'] ?? null;
@@ -14,6 +18,7 @@ class AddArticleController extends Controller {
             if ($title && $content) {
                 $articleRepository = new ArticleRepository();
                 $articleRepository->createArticle(
+                    $user->getId(),
                     $title,
                     $content,
                     new DateTime('now', new DateTimeZone('+2'))
