@@ -30,10 +30,31 @@ class ItemRepository {
         return $items;
     }
 
-    public function findById(int $id): ?Event {
+    public function findById(int $id): ?Item {
         $query = "SELECT * FROM Produits WHERE id_produit = :id";
         $stmt = $this->pdo->prepare($query);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($row) {
+            return new Item(
+                $row['id_produit'],
+                $row['nom_prod'],
+                $row['description'],
+                $row['prix'],
+                $row['stock'],
+                $row['category']
+            );
+        }
+
+        return null;
+    }
+
+    public function findByName(string $name): ?Item {
+        $query = "SELECT * FROM Produits WHERE nom_prod = :name";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->bindParam(':name', $name, PDO::PARAM_STR);
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 

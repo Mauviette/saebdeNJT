@@ -12,16 +12,17 @@ class AddProduitController extends Controller {
             error_log("WOH CA RENTRE DANS LA FONCTION POST");
             $name = $_POST['name'] ?? null;
             $price = $_POST['price'] ?? null;
+            $stock = $_POST['stock'] ?? null;
             $category = $_POST['category'] ?? null;
             $productImage = $_FILES['ItemImage'] ?? null;
             $error = null;
 
-            if ($name && $price && $category && $productImage) {
+            if ($name && $price && $category) {
                 $ItemRepository = new ItemRepository();
                 
-                $ItemRepository->createItem($name, '', $price, 0, $category);
+                $ItemRepository->createItem($name, '', $price, $stock, $category);
 
-                $Item = $ItemRepository->findByTitle($subject);
+                $Item = $ItemRepository->findByName($name);
                 if ($Item) {
                     $ItemId = $Item->getId();
 
@@ -47,7 +48,7 @@ class AddProduitController extends Controller {
                     return $this->view('add_produit.html.twig', ['error' => $error]);
                 }
 
-                header('Location: /index.php');
+                header('Location: /shop.php');
                 exit;
             }
         }
