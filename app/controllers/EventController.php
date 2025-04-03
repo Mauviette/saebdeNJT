@@ -16,8 +16,18 @@ class EventController extends Controller {
         $eventRepository = new EventRepository();
         $event = $eventRepository->findById((int)$id);
 
+        $eventIsPassed = false;
+        if ($event) {
+            $eventDate = $event->getDate();
+            $currentDate = new DateTime();
+            if ($eventDate < $currentDate) {
+                $eventIsPassed = true;
+            }
+        }
+
         $this->view('event.html.twig', [
-            'event' => $event]
+            'event' => $event,
+            'eventIsPassed' => $eventIsPassed,]
         );
     }
 }
