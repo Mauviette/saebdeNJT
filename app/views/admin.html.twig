@@ -31,7 +31,7 @@
                 <td>janedoe</td>
                 <td>janedoe@example.com</td>
                 <td>250€</td>
-            </tr>
+            </tr> 
         </tbody>
     </table>
 
@@ -66,20 +66,35 @@
         </tbody>
     </table>
 
-    <!-- Contacts reçus -->
-    <h4>Contacts Reçus</h4>
-    <div class="row">
-        <div class="col-md-4">
-            <ul class="list-group">
-                <li class="list-group-item">Message de johndoe</li>
-                <li class="list-group-item">Message de janedoe</li>
-            </ul>
+    <!-- Section Contacts -->
+    <h3>Contacts</h3>
+    <div class="border p-4 flex-grow-1">
+    <div class="row gy-3">
+        <!-- Colonne des contacts (scrollable) -->
+        <div class="col-md-4 border-end" style="max-height: 650px; overflow-y: auto;">
+        <div class="list-group">
+            {% for contact in contacts %}
+            <a href="?contact_id={{ contact.id_contact }}" class="list-group-item list-group-item-action {% if contact.id == selected_contact.id %}bg-secondary text-white{% endif %}">
+            <h6 class="mb-1">{{ contact.sujet }}</h6>
+            <p class="mb-1 text-muted">{{ contact.contenu }}</p>
+            </a>
+            {% endfor %}
         </div>
-        <div class="col-md-8 border p-3">
-            <p><strong>De :</strong> johndoe@example.com</p>
-            <p><strong>Message :</strong> Bonjour, j'ai une question sur votre produit.</p>
+        </div>
+
+        <!-- Colonne des détails du contact sélectionné -->
+        <div class="col-md-8">
+        {% if selected_contact %}
+        <h2>{{ selected_contact.name }}</h2>
+        <p class="text-muted">Email : {{ selected_contact.email }}</p>
+        <p>Téléphone : {{ selected_contact.phone }}</p>
+        <p>Message : {{ selected_contact.message }}</p>
+        {% else %}
+        <p class="text-muted">Veuillez sélectionner un contact pour afficher les détails.</p>
+        {% endif %}
         </div>
     </div>
-</div>
+    </div>
+
 
 {% endblock %}

@@ -10,7 +10,7 @@ DROP TABLE IF EXISTS Evenements CASCADE;
 DROP TABLE IF EXISTS Commande CASCADE;
 DROP TABLE IF EXISTS Commentaires CASCADE;
 DROP TABLE IF EXISTS Produits CASCADE;
-
+DROP TABLE IF EXISTS Contact CASCADE;
 
 CREATE TABLE Utilisateur (
     id_utilisateur SERIAL PRIMARY KEY,
@@ -59,6 +59,15 @@ CREATE TABLE Commentaires (
     contenu TEXT NOT NULL,
     date_publication TIMESTAMP NOT NULL,
     FOREIGN KEY (id_article) REFERENCES Articles(id_article) ON DELETE CASCADE
+);
+
+CREATE TABLE Contact (
+    id_contact SERIAL PRIMARY KEY,
+    id_utilisateur INT NOT NULL,
+    sujet VARCHAR(255) NOT NULL,
+    contenu TEXT NOT NULL,
+    date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_utilisateur) REFERENCES Utilisateur(id_utilisateur) ON DELETE CASCADE
 );
 
 
@@ -151,3 +160,8 @@ INSERT INTO Produits (nom_prod, description, prix, stock, category) VALUES
 ('T-shirt', 'T-shirt en coton bio', 15.00, 100, 'Vêtements'),
 ('Mug', 'Mug en céramique', 10.00, 50, 'Goodies'),
 ('Sweatshirt', 'Sweatshirt en polaire', 30.00, 75, 'Vêtements');
+
+INSERT INTO Contact (id_utilisateur, sujet, contenu) VALUES
+(1, 'Problème de connexion', 'Je n’arrive pas à me connecter à mon compte. Pouvez-vous m’aider ?'),
+(2, 'Demande d’information', 'Pouvez-vous m’en dire plus sur les événements à venir ?'),
+(3, 'Suggestion', 'Je suggère d’ajouter un nouveau produit dans la boutique.');
