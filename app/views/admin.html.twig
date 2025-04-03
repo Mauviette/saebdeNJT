@@ -64,14 +64,14 @@
     </table>
 
     <!-- Section Contacts -->
-    <h3>Contacts</h3>
+    <h3 id="contacts-section">Contacts</h3>
     <div class="border p-4 flex-grow-1">
         <div class="row gy-3">
             <!-- Colonne des contacts (scrollable) -->
             <div class="col-md-4 border-end" style="max-height: 650px; overflow-y: auto;">
                 <div class="list-group">
                     {% for contact in contacts %}
-                    <a href="?contact_id={{ contact.id }}" class="list-group-item list-group-item-action {% if contact.id == selected_contact.id %}bg-secondary text-white{% endif %}">
+                    <a href="?contact_id={{ contact.id }}#contacts-section" class="list-group-item list-group-item-action {% if contact.id == selected_contact.id %}bg-secondary text-white{% endif %}">
                     <h6 class="mb-1">{{ contact.sujet }}</h6>
                         <p class="mb-1 text-muted">{{ contact.contenu }}</p>
                     </a>
