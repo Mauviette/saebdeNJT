@@ -160,7 +160,7 @@ INSERT INTO Utilisateur (nom, email, mot_de_passe, fond, role, date_adhesion) VA
 INSERT INTO Produits (nom_prod, description, prix, stock, category) VALUES
 ('T-shirt', 'T-shirt en coton bio', 15.00, 100, 'Vetements'),
 ('Mug', 'Mug en céramique', 10.00, 50, 'Goodies'),
-('Sweatshirt', 'Sweatshirt en polaire', 30.00, 75, 'Vetements');
+('Sweatshirt', 'Sweatshirt en polaire', 30.00, 75, 'Vetements'),
 ('Casquette', 'Casquette en tissu respirant', 12.00, 60, 'Accessoires'),
 ('Sac à dos', 'Sac à dos en toile robuste', 40.00, 30, 'Bagagerie'),
 ('Bouteille Isotherme', 'Bouteille en acier inoxydable', 20.00, 80, 'Goodies');
