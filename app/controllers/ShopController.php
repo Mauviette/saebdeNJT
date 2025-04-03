@@ -11,7 +11,8 @@ class ShopController extends Controller {
         error_log($items[0]->getName());
 
         $this->view('shop.html.twig', [
-            'items' => $items
+            'items' => $items,
+            'categories' => (new ItemRepository())->findAllCategory()
         ]);
     }
 }

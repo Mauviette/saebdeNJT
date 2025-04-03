@@ -30,15 +30,13 @@
         </div>
 
         <div class="col-md-4">
-            <h3>Filtres</h3>  
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input filter" id="filterClothes">
-                <label class="form-check-label filterName" for="filterClothes">Vetements</label>
-            </div>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input filter" id="filterGoodies">
-                <label class="form-check-label filterName" for="filterGoodies">Goodies</label>
-            </div>
+            <h3>Filtres</h3>
+            {% for category in categories %}
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input filter" id="filter{{ category|capitalize }}">
+                    <label class="form-check-label filterName" for="filter{{ category|capitalize }}">{{ category|capitalize }}</label>
+                </div>
+            {% endfor %}
 
             <h4>Fourchette de prix</h4>
             <div class="price-slider-container">

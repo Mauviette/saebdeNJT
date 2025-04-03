@@ -50,4 +50,18 @@ class ItemRepository {
 
         return null;
     }
+
+    public function findAllCategory(): array {
+        $query = "SELECT DISTINCT category FROM Produits";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute();
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $categories = [];
+        foreach ($results as $row) {
+            $categories[] = $row['category'];
+        }
+
+        return $categories;
+    }
 }

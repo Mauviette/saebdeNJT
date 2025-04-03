@@ -163,7 +163,10 @@ INSERT INTO Produits (nom_prod, description, prix, stock, category) VALUES
 ('Sweatshirt', 'Sweatshirt en polaire', 30.00, 75, 'Vetements'),
 ('Casquette', 'Casquette en tissu respirant', 12.00, 60, 'Accessoires'),
 ('Sac à dos', 'Sac à dos en toile robuste', 40.00, 30, 'Bagagerie'),
-('Bouteille Isotherme', 'Bouteille en acier inoxydable', 20.00, 80, 'Goodies');
+('Bouteille Isotherme', 'Bouteille en acier inoxydable', 20.00, 80, 'Goodies'),
+('Porte-clés', 'Porte-clés en métal gravé', 5.00, 150, 'Goodies'),
+('Écharpe', 'Écharpe en laine douce', 25.00, 40, 'Accessoires'),
+('Valise Cabine', 'Valise cabine légère et robuste', 60.00, 20, 'Bagagerie');
 
 INSERT INTO Contact (id_utilisateur, sujet, contenu) VALUES
 (1, 'Problème de connexion', 'Je n’arrive pas à me connecter à mon compte. Pouvez-vous m’aider ?'),
