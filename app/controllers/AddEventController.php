@@ -5,7 +5,6 @@ require_once './app/repositories/EventRepository.php';
 require_once './app/entities/Event.php';
 
 class AddEventController extends Controller {
-
     public function add() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $subject = $_POST['subject'] ?? null;
@@ -13,10 +12,11 @@ class AddEventController extends Controller {
             $address = $_POST['address'] ?? null;
             $date = $_POST['date'] ?? null;
             $price = $_POST['price'] ?? null;
-            $image = $_POST['eventImage'] ?? null;
 
             if ($subject && $content && $address && $date && $price) {
                 $eventRepository = new EventRepository();
+                
+                // 1. Création de l'événement (sans image)
                 $eventRepository->createEvent(
                     $subject,
                     $content,
@@ -25,24 +25,30 @@ class AddEventController extends Controller {
                     $price
                 );
 
+                // 2. Récupérer l'ID de l'événement créé
+                $event = $eventRepository->findByTitle($subject);
+                if ($event) {
+                    $eventId = $event->getId();
 
-            $event = $eventRepository->findByTitle($subject);
+                    // 3. Vérification et sauvegarde de l'image
+                    if (!empty($_FILES['eventImage']['name'])) {
+                        $uploadDir = './assets/images/events/'; // Assure-toi que ce dossier existe
+                        $imagePath = $uploadDir . $eventId . '.jpg'; // Forcer l'extension .jpg
 
-            if ($image) {
-                $uploadDir = './assets/images/events/';
-                $uploadFile = $uploadDir . basename($_FILES['eventImage']['name']);
+                        // Vérifier si l'extension est valide
+                        $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+                        $fileExtension = strtolower(pathinfo($_FILES['eventImage']['name'], PATHINFO_EXTENSION));
 
-                if (move_uploaded_file($_POST['eventImage'], $uploadFile)) {
-                    // Optionally, save the image path to the database or perform other actions
-                } else {
-                    error_log('Failed to upload the image.');
+                        if (in_array($fileExtension, $allowedExtensions)) {
+                            move_uploaded_file($_FILES['eventImage']['tmp_name'], $imagePath);
+                        } else {
+                            $error = "Format de fichier non autorisé.";
+                        }
+                    }
                 }
-            }
 
                 header('Location: /index.php');
                 exit;
-            } else {
-                error_log('Subject, content, address,date and price are required.');
             }
         }
 
