@@ -19,7 +19,8 @@ CREATE TABLE Utilisateur (
     mot_de_passe VARCHAR(255) NOT NULL,
     fond DECIMAL(15,2) DEFAULT 0,
     role VARCHAR(20) NOT NULL CHECK (role IN ('admin', 'utilisateur_adherent', 'utilisateur')),
-    date_adhesion DATE NOT NULL
+    date_adhesion DATE NOT NULL,
+    parametre_notification VARCHAR(20) NOT NULL CHECK (parametre_notification IN ('tous', 'articles', 'evenements', 'none')) DEFAULT 'tous'
 );
 
 CREATE TABLE Evenements (

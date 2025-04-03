@@ -95,4 +95,22 @@ class UserRepository {
 
         return $row ? $row['mot_de_passe'] : null;
     }
+
+    public function getNotificationPreference($userId) {
+        $stmt = $this->pdo->prepare("SELECT parametre_notification FROM Utilisateur WHERE id_utilisateur = ?");
+        $stmt->execute([$userId]);
+        return $stmt->fetchColumn();
+    }
+
+    public function updateNotificationPreference($userId, $preference) {
+        $stmt = $this->pdo->prepare("UPDATE Utilisateur SET parametre_notification = ? WHERE id_utilisateur = ?");
+        $stmt->execute([$preference, $userId]);
+    }
+
+    public function updateUsername($userId, $newUsername) {
+        $db = Database::getConnection();
+        $stmt = $db->prepare("UPDATE users SET username = ? WHERE id = ?");
+        $stmt->execute([$newUsername, $userId]);
+    }
+    
 }

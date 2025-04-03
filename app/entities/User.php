@@ -75,5 +75,9 @@ class User {
         $this->role = $data['role'];
         $this->date_adhesion = $data['date_adhesion'];
     }
+
+    public function getEmail(): ?string {
+        return $this->email;
+    }
 }
 ?>

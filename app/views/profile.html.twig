@@ -5,26 +5,51 @@
     <div class="card mx-auto" style="max-width: 400px;">
         <div class="card-body text-center">
             <h5 class="card-title">Votre profil</h5>
-            <div class="container d-flex justify-content-between align-items-center">
+            <div class="mb-3">
                 <p class="mb-1">Nom d'utilisateur : <strong>{{ user.nom }}</strong></p>
-                <button class="btn btn-sm btn-secondary">Modifier</button>
             </div>
             <div class="mb-3">
-                <p class="mb-1">Email : <strong>{{ user.email }}</strong></p>
+                <p class="mb-1">Email : <strong>{{ email }}</strong></p>
             </div>
+                <div class="mb-3">
+                    <label for="notificationSelect" class="form-label">Notifications (mail) :</label>
+                    <select id="notificationSelect" name="notificationSelect" class="form-select">
+                        <option value="tous" {% if currentNotification == 'tous' %}selected{% endif %}>Toutes</option>
+                        <option value="evenements" {% if currentNotification == 'evenements' %}selected{% endif %}>Événements seulement</option>
+                        <option value="articles" {% if currentNotification == 'articles' %}selected{% endif %}>Articles seulement</option>
+                        <option value="none" {% if currentNotification == 'none' %}selected{% endif %}>Aucune</option>
+                    </select>
+                </div> 
+
+                <script>
+                document.getElementById("notificationSelect").addEventListener("change", function() {
+                    let notificationValue = this.value;
+
+                    fetch('/profile.php', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                        body: 'notificationSelect=' + encodeURIComponent(notificationValue)
+                    });
+                });
+                </script>
+
+
             <div class="mb-3">
-                <label for="notificationSelect" class="form-label">Notifications :</label>
-                <select id="notificationSelect" class="form-select">
-                    <option selected>Toutes</option>
-                    <option value="1">Important</option>
-                    <option value="2">Aucune</option>
-                </select>
+            {% if user.role == 'utilisateur' %}
+                <p class="mb-1">Vous êtes <strong>membre non adhérent</strong></p>
+                <button class="btn btn-secondary btn-sm">Devenir adhérent</button>
+            {% elseif user.role == 'utilisateur_adherent' %}
+                <p class="mb-1">Vous êtes <strong>membre adhérent</strong></p>
+            {% elseif user.role == 'admin' %}
+                <p class="mb-1">Vous êtes <strong>administrateur</strong></p>
+            {% endif %}
             </div>
             <hr>
             <div class="mb-3">
                 <p class="mb-1">Vos fonds : <strong>{{ user.fonds|number_format(2, '.', ' ') }}€</strong></p>
-                <button class="btn btn-secondary btn-sm">Ajouter des fonds</button>
+                <button class="btn btn-secondary btn-sm" onclick="alert('Non disponible.')">Ajouter des fonds</button>
             </div>
+
             <hr>
             <div class="d-grid gap-2">
                 {% if user.role == 'admin' %}
