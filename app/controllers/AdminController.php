@@ -28,15 +28,23 @@ class AdminController extends Controller {
                 $selected_contact = $contact;
                 $userAffichage = $userRepository->getUserById($contact->getIdUtilisateur())->getNom();
                 $dateAffichage = $contact->getDateCreation()->format('d/m/Y H:i:s');
-                break;
+                
+                $this->view('admin.html.twig', ['contacts' => $contacts,
+                'selected_contact' => $selected_contact,
+                'userAffichage' => $userAffichage,
+                'dateAffichage' => $dateAffichage,
+                'users' => $users,
+                'user' => $user,
+                ]
+                    );
+                exit;
+                
             }
             }
         }
 
         $this->view('admin.html.twig', ['contacts' => $contacts,
             'selected_contact' => $selected_contact,
-            'userAffichage' => $userAffichage,
-            'dateAffichage' => $dateAffichage,
             'users' => $users,
             'user' => $user,
             ]
