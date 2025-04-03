@@ -64,4 +64,17 @@ class ItemRepository {
 
         return $categories;
     }
+
+    public function createItem (string $name, string $description, float $price, int $stock, string $category): bool {
+        $query = "INSERT INTO Produits (nom_prod, description, prix, stock, category) 
+                  VALUES (:name, :description, :price, :stock, :category)";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->bindValue(':name', $name, PDO::PARAM_STR);
+        $stmt->bindValue(':description', $description, PDO::PARAM_STR);
+        $stmt->bindValue(':price', $price, PDO::PARAM_STR);
+        $stmt->bindValue(':stock', $stock, PDO::PARAM_INT);
+        $stmt->bindValue(':category', $category, PDO::PARAM_STR);
+
+        return $stmt->execute();
+    }
 }

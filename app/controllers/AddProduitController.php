@@ -7,23 +7,16 @@ require_once './app/entities/Item.php';
 class AddProduitController extends Controller {
     public function add() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $subject = $_POST['subject'] ?? null;
-            $content = $_POST['content'] ?? null;
-            $address = $_POST['address'] ?? null;
-            $date = $_POST['date'] ?? null;
+            $name = $_POST['name'] ?? null;
             $price = $_POST['price'] ?? null;
+            $category = $_POST['category'] ?? null;
+            $productImage = $_FILES['ItemImage'] ?? null;
             $error = null;
 
-            if ($subject && $content && $address && $date && $price) {
+            if ($name && $price && $category && $productImage) {
                 $ItemRepository = new ItemRepository();
                 
-                $ItemRepository->createItem(
-                    $subject,
-                    $content,
-                    $address,
-                    new DateTime($date),
-                    $price
-                );
+                $ItemRepository->createItem($name, '', $price, 0, $category);
 
                 $Item = $ItemRepository->findByTitle($subject);
                 if ($Item) {

@@ -17,11 +17,20 @@
         </div>
         <div class="mb-3">
             <label for="description" class="form-label">Description :</label>
-            <textarea class="form-control" id="description" name="description" rows="4" placeholder="Entrez la description" required></textarea>
+            <textarea class="form-control" id="description" name="description" rows="4" placeholder="Entrez une description rapide" required></textarea>
         </div>
         <div class="mb-3">
             <label for="price" class="form-label">Prix :</label>
             <input type="text" class="form-control" id="price" name="price" placeholder="Entrez le prix" required>
+        </div>
+        <div class="mb-3">
+            <label for="category" class="form-label">Catégorie :</label>
+            <select id="category" name="categorySelect" class="form-select">
+                <option value="vetements">Vetements</option>
+                <option value="goodies">Goodies</option>
+                <option value="accessoires">Accessoires</option>
+                <option value="bagagerie">Bagagerie</option>
+            </select>
         </div>
         <div class="d-grid">
             <button type="submit" class="btn btn-secondary">Envoyer</button>
