@@ -67,15 +67,13 @@
     <h3>Contacts</h3>
     <div class="border p-4 flex-grow-1">
         <div class="row gy-3">
-        
             <!-- Colonne des contacts (scrollable) -->
             <div class="col-md-4 border-end" style="max-height: 650px; overflow-y: auto;">
                 <div class="list-group">
-                
                     {% for contact in contacts %}
                     <a href="?contact_id={{ contact.id }}" class="list-group-item list-group-item-action {% if contact.id == selected_contact.id %}bg-secondary text-white{% endif %}">
                     <h6 class="mb-1">{{ contact.sujet }}</h6>
-                    <p class="mb-1 text-muted">{{ contact.contenu }}</p>
+                        <p class="mb-1 text-muted">{{ contact.contenu }}</p>
                     </a>
                     {% endfor %}
                 </div>
@@ -83,89 +81,18 @@
 
             <!-- Colonne des détails du contact sélectionné -->
             <div class="col-md-8">
-                
+               {% if selected_contact %}
+                    <h2>{{ selected_contact.sujet }}</h2>
+                    <p class="text-muted">
+                        Le {{ dateAffichage }}<br>
+                        De {{ userAffichage }}
+                    </p>
+                    <p>{{ selected_contact.contenu }}</p>
+                {% else %}
+                    <p class="text-muted">Veuillez sélectionner un contact pour afficher les détails.</p>
+                {% endif %}
             </div>
-        </div>
-
-        
+        </div>    
     </div>
 </div>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-    const contactLinks = document.querySelectorAll(".list-group-item");
-    const contactDetail = document.querySelector(".col-md-8");
-
-    contactLinks.forEach(link => {
-        link.addEventListener("click", function (event) {
-            event.preventDefault();
-            
-            // Retirer la classe active de tous les contacts
-            contactLinks.forEach(item => item.classList.remove("bg-secondary", "text-white"));
-            
-            // Ajouter la classe active au contact sélectionné
-            this.classList.add("bg-secondary", "text-white");
-            
-            // Récupérer les données du contact
-            const sujet = this.querySelector("h6").innerText;
-            const contenu = this.querySelector("p").innerText;
-
-            // Mettre à jour le contenu de la section détails
-            contactDetail.innerHTML = `
-                <h2 class="mb-1">${sujet}</h2>
-                <p class="mb-1 text-muted">${contenu}</p>
-            `;
-        });
-    });
-    });
-</script>
-
-<!--
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-    const contactList = document.querySelector(".list-group");
-    const contactDetail = document.querySelector(".col-md-8");
-
-    // Charger les contacts depuis l'API
-    fetch("../data/api_contacts.php")
-        .then(response => response.json())
-        .then(contacts => {
-            contactList.innerHTML = ""; // Nettoyer la liste avant d'ajouter les éléments
-
-            contacts.forEach(contact => {
-                const contactItem = document.createElement("a");
-                contactItem.href = "#";
-                contactItem.classList.add("list-group-item", "list-group-item-action");
-                contactItem.dataset.id = contact.id;
-                contactItem.innerHTML = `
-                    <h6 class="mb-1">${contact.sujet}</h6>
-                    <p class="mb-1 text-muted">${contact.contenu}</p>
-                `;
-
-                // Ajouter un événement de clic
-                contactItem.addEventListener("click", function (event) {
-                    event.preventDefault();
-
-                    // Retirer la classe active de tous les contacts
-                    document.querySelectorAll(".list-group-item").forEach(item => 
-                        item.classList.remove("bg-secondary", "text-white")
-                    );
-
-                    // Ajouter la classe active au contact sélectionné
-                    this.classList.add("bg-secondary", "text-white");
-
-                    // Mettre à jour le contenu des détails
-                    contactDetail.innerHTML = `
-                        <h2 class="mb-1">${contact.sujet}</h2>
-                        <p class="mb-1 text-muted">${contact.contenu}</p>
-                    `;
-                });
-
-                contactList.appendChild(contactItem);
-            });
-        })
-        .catch(error => console.error("Erreur lors du chargement des contacts :", error));
-});
-
-</script>-->
 {% endblock %}

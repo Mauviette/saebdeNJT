@@ -20,7 +20,7 @@ class AddContactController extends Controller {
                     $user->getId(),
                     $title,
                     $content,
-                    new DateTime()
+                    new DateTime('now', new DateTimeZone('+2'))
                 );
     
                 header('Location: /index.php');

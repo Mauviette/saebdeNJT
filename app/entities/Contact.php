@@ -48,7 +48,5 @@ class Contact {
 	public function setDateCreation(?\DateTime $date_creation): void {
 		$this->date_creation = $date_creation;
 	}
-
-
 }
 ?>

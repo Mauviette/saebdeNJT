@@ -26,6 +26,8 @@ class AdminController extends Controller {
             foreach ($contacts as $contact) {
             if ($contact->getIdContact() == $contact_id) {
                 $selected_contact = $contact;
+                $userAffichage = $userRepository->getUserById($contact->getIdUtilisateur())->getNom();
+                $dateAffichage = $contact->getDateCreation()->format('d/m/Y H:i:s');
                 break;
             }
             }
@@ -33,6 +35,8 @@ class AdminController extends Controller {
 
         $this->view('admin.html.twig', ['contacts' => $contacts,
             'selected_contact' => $selected_contact,
+            'userAffichage' => $userAffichage,
+            'dateAffichage' => $dateAffichage,
             'users' => $users,
             'user' => $user,
             ]
