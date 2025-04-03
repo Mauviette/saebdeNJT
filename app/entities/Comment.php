@@ -4,7 +4,7 @@ class Comment {
 	public function __construct(
 		public ?int $id_commentaire,
 		private int $id_utilisateur,
-		private String $nom_utilisateur,
+		private string $nom_utilisateur,
 		private int $id_evenement,
 		private string $contenu,
 		private ?\DateTime $date_publication = null
@@ -49,5 +49,14 @@ class Comment {
 	public function setDatePublication(?\DateTime $date_publication): void {
 		$this->date_publication = $date_publication;
 	}
+
+	public function setUsername(String $username): void {
+		$this->nom_utilisateur = $username;
+	}
+
+	public function getUsername(): String {
+		return $this->nom_utilisateur;
+	}
+
 }
 ?>

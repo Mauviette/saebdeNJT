@@ -43,8 +43,8 @@
         <div class="border p-3 bg-light" style="max-height: 300px; overflow-y: auto;">
             {% for commentaire in commentaires %}
                 <div class="mb-3 p-2 border rounded bg-white">
-                    <p class="fw-bold">De {{ commentaire.nom_utilisateur }}</p>
-                    <p>{{ commentaire.content }}</p>
+                    <p class="fw-bold">De {{ commentaire.getUsername }}</p>
+                    <p>{{ commentaire.contenu }}</p>
                 </div>
             {% endfor %}
         </div>
