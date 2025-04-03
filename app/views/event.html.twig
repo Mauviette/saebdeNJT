@@ -19,7 +19,7 @@
                 <p class="text-muted">{{ event.date|date('d F Y') }}</p>
 
                 <p class="fw-bold">Prix : {{ event.price|number_format(2, ',', ' ') }}€</p>
-                <button class="btn btn-secondary">
+                <button class="btn btn-secondary" onclick="alert('Non disponible.')">
                     {{ event.price == 0 ? 'S\'inscrire' : 'Payer' }}
                 </button>
             {% endif %}
