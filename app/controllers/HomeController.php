@@ -8,6 +8,7 @@ require_once './app/repositories/ArticleRepository.php';
 require_once './app/entities/Article.php';
 require_once './app/repositories/EventRepository.php';
 require_once './app/entities/Event.php';
+require_once './app/repositories/UserRepository.php';
 
 
 class HomeController extends Controller
@@ -18,6 +19,7 @@ class HomeController extends Controller
    {
     $events = (new EventRepository())->findAll();
     $articles = (new ArticleRepository())->findAll();
+    $userRepository = new UserRepository();
 
     $authService = new AuthService();
     $user = $authService->getUser();
@@ -46,7 +48,8 @@ class HomeController extends Controller
             if ($article->getId() == $news_id) {
                 $selected_article = $article;
                 $dateAffichage = $selected_article->getDatePublication()->format('d/m/Y H:i:s');
-                $userArticle = $article->getUserId();
+                $userAffichage = $userRepository->getUserById($article->getUserId())->getNom();
+                
                 break;
             }
         }
@@ -58,6 +61,7 @@ class HomeController extends Controller
         'events' => $events,
         'selected_article' => $selected_article,
         'dateAffichage' => $dateAffichage,
+        'userAffichage' => $userAffichage,
         'user' => $user
     ]);
    }

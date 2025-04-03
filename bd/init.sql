@@ -128,7 +128,7 @@ CREATE TABLE Est_Envoye_Sur (
 
 
 -- Exemples de données
-INSERT INTO Articles (titre, contenu, date_publication) VALUES
+INSERT INTO Articles (id_utilisateur, titre, contenu, date_publication) VALUES
 (1,'Découverte d''une nouvelle exoplanète', 'Les astronomes ont découvert une exoplanète potentiellement habitable à 12 années-lumière de la Terre.', '2025-01-15'),
 (1,'Avancée majeure dans la lutte contre le cancer', 'Des chercheurs ont mis au point un traitement révolutionnaire qui réduit les tumeurs de 80% en quelques semaines.', '2025-02-20'),
 (2,'Lancement d''une voiture électrique révolutionnaire', 'Une startup a dévoilé une voiture électrique avec une autonomie de 1000 km et une recharge en 5 minutes.', '2025-03-10'),
