@@ -44,7 +44,7 @@ CREATE TABLE Produits (
     description VARCHAR(1000),
     prix DECIMAL(10,2) NOT NULL,
     stock INT NOT NULL,
-    category VARCHAR(50) NOT NULL CHECK (category IN ('Vêtements', 'Goodies'))
+    category VARCHAR(50) NOT NULL CHECK (category IN ('Vetements', 'Goodies'))
 );
 
 CREATE TABLE Articles (
