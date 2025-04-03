@@ -17,6 +17,10 @@ class RegisterController extends Controller {
                 // Redirige vers la page d'accueil ou le tableau de bord après connexion
                 header("Location: /index.php");
 				error_log("Inscription réussie pour l'utilisateur : $email");
+
+				$authService->login($email, $password);
+				header("Location: /index.php");
+
                 exit();
             } else {
                 $error = "Identifiants incorrects.";

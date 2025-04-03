@@ -9,6 +9,27 @@ class UserRepository {
         $this->pdo = Repository::getInstance()->getPDO();
     }
 
+    public function findAll(): array {
+        $query = "SELECT * FROM Utilisateur";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute();
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $users = [];
+        foreach ($results as $row) {
+            $users[] = new User(
+                $row['id_utilisateur'],
+                $row['nom'],
+                $row['fond'],
+                $row['role'],
+                new \DateTime($row['date_adhesion']),
+                $row['email']
+            );
+        }
+
+        return $users;
+    }
+
     public function createUser(string $email, string $password, string $username): bool {
         $sql = "INSERT INTO Utilisateur (nom, email, mot_de_passe, fond, role, date_adhesion) 
                 VALUES (:nom, :email, :mot_de_passe, :fond, :role, :date_adhesion)";

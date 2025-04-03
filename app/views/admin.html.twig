@@ -16,22 +16,19 @@
     <table class="table table-bordered">
         <thead class="table-secondary">
             <tr>
-                <th>Nom d'utilisateur</th>
-                <th>Email</th>
-                <th>Fonds</th>
+            <th>Nom d'utilisateur</th>
+            <th>Email</th>
+            <th>Fonds</th>
             </tr>
         </thead>
         <tbody>
+            {% for user in users %}
             <tr>
-                <td>johndoe</td>
-                <td>johndoe@example.com</td>
-                <td>100€</td>
+            <td>{{ user.nom }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.fonds }}€</td>
             </tr>
-            <tr>
-                <td>janedoe</td>
-                <td>janedoe@example.com</td>
-                <td>250€</td>
-            </tr> 
+            {% endfor %}
         </tbody>
     </table>
 
