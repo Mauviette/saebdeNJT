@@ -8,20 +8,22 @@ class AdminController extends Controller {
 
     public function menu() {
         $contactRepository = new ContactRepository();
-        $contacts = $contactRepository->getAllContacts();
+        $contacts = $contactRepository->findAll();
 
         $contact_id = $_GET['contact_id'] ?? null;
         $selected_contact = null;
 
         if ($contact_id !== null) {
             foreach ($contacts as $contact) {
-            if ($contact->getId() == $contact_id) {
+            if ($contact->getIdContact() == $contact_id) {
                 $selected_contact = $contact;
                 break;
             }
             }
         }
-        
-        $this->view('admin.html.twig', ['contacts' => $contacts]);
+
+        $this->view('admin.html.twig', ['contacts' => $contacts,
+            'selected_contact' => $selected_contact]
+        );
     }
 }

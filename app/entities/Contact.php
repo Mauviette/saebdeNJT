@@ -2,7 +2,7 @@
 class Contact {
 
 	public function __construct(
-		private ?int $id_contact,
+		public ?int $id,
 		private int $id_utilisateur,
 		private string $sujet,
 		private string $contenu,
@@ -10,11 +10,11 @@ class Contact {
 	) {}
 
 	public function getIdContact(): ?int {
-		return $this->id_contact;
+		return $this->id;
 	}
 
-	public function setIdContact(?int $id_contact): void {
-		$this->id_contact = $id_contact;
+	public function setIdContact(?int $id): void {
+		$this->id = $id;
 	}
 
 	public function getIdUtilisateur(): int {

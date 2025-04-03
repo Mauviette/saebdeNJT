@@ -1,29 +1,58 @@
 <?php
 
+use PSpell\Config;
+
 require_once './app/core/Repository.php';
 require_once './app/entities/Contact.php';
 
 class ContactRepository
 {
 	private $pdo;
-	
+
 	public function __construct()
 	{
 		$this->pdo = Repository::getInstance()->getPDO();
 	}
 
-	public function getAllContacts(): array
-	{
-		$query = $this->pdo->query('SELECT * FROM Contact');
-		return $query->fetchAll(PDO::FETCH_ASSOC);
+	public function findAll(): array {
+		$query = "SELECT * FROM Contact";
+		$stmt = $this->pdo->prepare($query);
+		$stmt->execute();
+		$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+		$contacts = [];
+		foreach ($results as $row) {
+			$contacts[] = new Contact(
+				$row['id_contact'],
+				$row['id_utilisateur'],
+				$row['sujet'],
+				$row['contenu'],
+				new \DateTime($row['date_creation'])
+			);
+		}
+
+		return $contacts;
 	}
 
-	public function getContactById(int $id_contact): ?array
+	public function getContactById(int $id_contact): ?Contact
 	{
-		$stmt = $this->pdo->prepare('SELECT * FROM Contact WHERE id_contact = :id_contact');
-		$stmt->execute(['id_contact' => $id_contact]);
-		$contact = $stmt->fetch(PDO::FETCH_ASSOC);
-		return $contact ?: null;
+		$query = "SELECT * FROM Contact WHERE id_contact = :id_contact";
+		$stmt = $this->pdo->prepare($query);
+		$stmt->bindParam(':id_contact', $id_contact, PDO::PARAM_INT);
+		$stmt->execute();
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+		if ($row) {
+			return new Contact(
+				$row['id_contact'],
+				$row['id_utilisateur'],
+				$row['sujet'],
+				$row['contenu'],
+				new \DateTime($row['date_creation'])
+			);
+		}
+
+		return null;
 	}
 
 	public function createContact(int $id_utilisateur, String $sujet, String $contenu, DateTime $date_creation): bool
