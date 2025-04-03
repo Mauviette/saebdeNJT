@@ -1,7 +1,4 @@
 <?php
-
-use PSpell\Config;
-
 require_once './app/core/Repository.php';
 require_once './app/entities/Contact.php';
 

@@ -41,34 +41,12 @@
     <div class="mt-5">
         <h4>Commentaires :</h4>
         <div class="border p-3 bg-light" style="max-height: 300px; overflow-y: auto;">
-            <div class="mb-3 p-2 border rounded bg-white">
-                <p class="fw-bold">De Tibo2792</p>
-                <p>C'était super fun ! J'ai adoré !</p>
-            </div>
-            <div class="mb-3 p-2 border rounded bg-white">
-                <p class="fw-bold">De ChillGuyDu76</p>
-                <p>Une ambiance incroyable, à refaire sans hésitation !</p>
-            </div>
-            <div class="mb-3 p-2 border rounded bg-white">
-                <p class="fw-bold">De GamerX</p>
-                <p>J'ai gagné toutes les parties, qui veut me défier la prochaine fois ? 😎</p>
-            </div>
-            <div class="mb-3 p-2 border rounded bg-white">
-                <p class="fw-bold">De LaserKing</p>
-                <p>Super soirée, mais je pense qu'on pourrait améliorer les équipes pour plus d'équilibre.</p>
-            </div>
-            <div class="mb-3 p-2 border rounded bg-white">
-                <p class="fw-bold">De NoobMaster69</p>
-                <p>Je me suis fait éclater... mais c'était fun 😂</p>
-            </div>
-            <div class="mb-3 p-2 border rounded bg-white">
-                <p class="fw-bold">De ProSniper</p>
-                <p>J'ai adoré l'organisation, hâte du prochain événement !</p>
-            </div>
-            <div class="mb-3 p-2 border rounded bg-white">
-                <p class="fw-bold">De ShadowHunter</p>
-                <p>J’ai trouvé le mode de jeu vraiment original, bravo aux organisateurs !</p>
-            </div>
+            {% for commentaire in commentaires %}
+                <div class="mb-3 p-2 border rounded bg-white">
+                    <p class="fw-bold">De {{ commentaire.id_utilisateur }}</p>
+                    <p>{{ commentaire.content }}</p>
+                </div>
+            {% endfor %}
         </div>
         <textarea class="form-control mt-3" placeholder="Ajouter un commentaire..."></textarea>
     </div>

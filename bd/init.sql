@@ -73,6 +73,16 @@ CREATE TABLE Contact (
     FOREIGN KEY (id_utilisateur) REFERENCES Utilisateur(id_utilisateur) ON DELETE CASCADE
 );
 
+CREATE TABLE Commentaire (
+    id_commentaire SERIAL PRIMARY KEY,
+    id_utilisateur INT NOT NULL,
+    id_evenement INT NOT NULL,
+    contenu TEXT NOT NULL,
+    date_publication TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_utilisateur) REFERENCES Utilisateur(id_utilisateur) ON DELETE CASCADE,
+    FOREIGN KEY (id_evenement) REFERENCES Evenements(id_evenement) ON DELETE CASCADE
+);
+
 
 
 -- Relations
@@ -175,3 +185,29 @@ INSERT INTO Contact (id_utilisateur, sujet, contenu) VALUES
 (1, 'Problème de connexion', 'Je n’arrive pas à me connecter à mon compte. Pouvez-vous m’aider ?'),
 (2, 'Demande d’information', 'Pouvez-vous m’en dire plus sur les événements à venir ?'),
 (3, 'Suggestion', 'Je suggère d’ajouter un nouveau produit dans la boutique.');
+
+INSERT INTO Commentaire (id_utilisateur, id_evenement, contenu) VALUES
+(1, 1, 'Super soirée, j’ai adoré le laser game !'),
+(2, 1, 'C’était vraiment amusant, à refaire !'),
+(3, 2, 'Le bowling était génial, merci pour l’organisation.'),
+(1, 2, 'J’ai passé une excellente soirée, bravo à l’équipe.'),
+(2, 3, 'L’escape game était très bien conçu, un vrai défi !'),
+(3, 3, 'Une expérience incroyable, je recommande à tout le monde.'),
+(1, 4, 'Le karting était super, j’ai adoré la compétition.'),
+(2, 4, 'Une journée mémorable, merci pour cet événement.'),
+(3, 5, 'Le cinéma en plein air était magique, une belle ambiance.'),
+(1, 5, 'J’ai adoré les films projetés, très bon choix.'),
+(2, 6, 'L’atelier de cuisine était très instructif, merci au chef.'),
+(3, 6, 'J’ai appris beaucoup de choses, une expérience enrichissante.'),
+(1, 7, 'La randonnée était magnifique, les paysages étaient à couper le souffle.'),
+(2, 7, 'Merci aux guides pour leur professionnalisme, une belle journée.'),
+(3, 8, 'Une soirée conviviale, j’ai découvert de nouveaux jeux.'),
+(1, 8, 'Merci pour cette soirée, c’était très amusant.'),
+(2, 9, 'Le cours de yoga était relaxant, une belle expérience.'),
+(3, 9, 'Merci pour cette séance, je me sens revigoré.'),
+(1, 10, 'Le concert était incroyable, les artistes étaient talentueux.'),
+(2, 10, 'Une soirée mémorable, merci pour l’organisation.'),
+(3, 11, 'Miaou miaou miaou, une soirée inoubliable !'),
+(1, 11, 'Miaou miaou, j’ai adoré cet événement.'),
+(2, 12, 'Joyeux anniversaire Jules, une belle fête !'),
+(3, 12, 'Merci pour cette soirée, c’était très réussi !');
