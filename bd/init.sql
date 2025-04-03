@@ -52,8 +52,8 @@ CREATE TABLE Articles (
     id_utilisateur INT NOT NULL,
     titre VARCHAR(255) NOT NULL,
     contenu TEXT NOT NULL,
-    date_publication TIMESTAMP NOT NULL
-    FOREIGN KEY (id_utilisateur) REFERENCES Utilisateur(id_utilisateur) ON DELETE CASCADE,
+    date_publication TIMESTAMP NOT NULL,
+    FOREIGN KEY (id_utilisateur) REFERENCES Utilisateur(id_utilisateur) ON DELETE CASCADE
 );
 
 CREATE TABLE Commentaires (
@@ -128,6 +128,11 @@ CREATE TABLE Est_Envoye_Sur (
 
 
 -- Exemples de données
+INSERT INTO Utilisateur (nom, email, mot_de_passe, fond, role, date_adhesion) VALUES
+('Jean Dupont', 'jean.dupont@example.com', 'password123', 100.00, 'utilisateur', '2025-01-01'),
+('Marie Curie', 'marie.curie@example.com', 'securepass456', 200.00, 'utilisateur_adherent', '2025-02-15'),
+('Albert Einstein', 'albert.einstein@example.com', 'relativity789', 300.00, 'admin', '2025-03-10');
+
 INSERT INTO Articles (id_utilisateur, titre, contenu, date_publication) VALUES
 (1,'Découverte d''une nouvelle exoplanète', 'Les astronomes ont découvert une exoplanète potentiellement habitable à 12 années-lumière de la Terre.', '2025-01-15'),
 (1,'Avancée majeure dans la lutte contre le cancer', 'Des chercheurs ont mis au point un traitement révolutionnaire qui réduit les tumeurs de 80% en quelques semaines.', '2025-02-20'),
@@ -154,10 +159,6 @@ INSERT INTO Evenements (titre, description, lieu, prix, date_evenement) VALUES
 ('Miaulement de groupe', 'Miaou.', 'Salle de Concert, Strasbourg', 25.00, '2025-04-12'),
 ('Anniversaire de Jules', 'Miaou.', 'Salle de Concert, Strasbourg', 25.00, '2025-03-12');
 
-INSERT INTO Utilisateur (nom, email, mot_de_passe, fond, role, date_adhesion) VALUES
-('Jean Dupont', 'jean.dupont@example.com', 'password123', 100.00, 'utilisateur', '2025-01-01'),
-('Marie Curie', 'marie.curie@example.com', 'securepass456', 200.00, 'utilisateur_adherent', '2025-02-15'),
-('Albert Einstein', 'albert.einstein@example.com', 'relativity789', 300.00, 'admin', '2025-03-10');
 
 INSERT INTO Produits (nom_prod, description, prix, stock, category) VALUES
 ('T-shirt', 'T-shirt en coton bio', 15.00, 100, 'Vetements'),
