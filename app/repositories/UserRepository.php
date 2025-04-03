@@ -9,18 +9,18 @@ class UserRepository {
         $this->pdo = Repository::getInstance()->getPDO();
     }
 
-    public function createUser(User $user, string $password): bool {
+    public function createUser(string $username, string $password, string $email): bool {
         $sql = "INSERT INTO Utilisateur (nom, email, mot_de_passe, fond, role, date_adhesion) 
                 VALUES (:nom, :email, :mot_de_passe, :fond, :role, :date_adhesion)";
         $stmt = $this->pdo->prepare($sql);
 
         return $stmt->execute([
-            ':nom' => $user->getNom(),
-            ':email' => $user->getEmail(),
+            ':nom' => $username,
+            ':email' => $email,
             ':mot_de_passe' => password_hash($password, PASSWORD_BCRYPT),
-            ':fond' => $user->getFonds(),
-            ':role' => $user->getRole(),
-            ':date_adhesion' => $user->getDateAdhesion()->format('Y-m-d')
+            ':fond' => 0,
+            ':role' => 'utilisateur',
+            ':date_adhesion' => (new \DateTime())->format('Y-m-d')
         ]);
     }
 

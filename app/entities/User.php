@@ -79,5 +79,9 @@ class User {
     public function getEmail(): ?string {
         return $this->email;
     }
+
+    public function isAdmin() {
+        return $this->role === 'admin';
+    } 
 }
 ?>

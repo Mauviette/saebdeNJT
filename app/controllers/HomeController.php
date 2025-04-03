@@ -19,6 +19,9 @@ class HomeController extends Controller
     $events = (new EventRepository())->findAll();
     $articles = (new ArticleRepository())->findAll();
 
+    $authService = new AuthService();
+    $user = $authService->getUser();
+
     usort($events, function ($a, $b) {
         $now = new DateTime();
         $dateA = $a->getDate();
@@ -51,7 +54,8 @@ class HomeController extends Controller
         'title' => 'Le site du BDE',
         'articles' => $articles,
         'events' => $events,
-        'selected_article' => $selected_article
+        'selected_article' => $selected_article,
+        'user' => $user
     ]);
    }
 }

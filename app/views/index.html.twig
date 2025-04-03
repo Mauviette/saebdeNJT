@@ -26,14 +26,26 @@
 
                 <!-- Colonne des détails de l'actualité sélectionnée -->
                 <div class="col-md-8">
-                {% if selected_article %}
-                <h2>{{ selected_article.title }}</h2>
-                <p class="text-muted">Le {{ selected_article.date_publication | date('d F Y à H:i') }}<br> De {{ selected_article.author }}</p>
-                <p>{{ selected_article.content }}</p>
-                {% else %}
-                <p class="text-muted">Veuillez sélectionner une actualité pour afficher les détails.</p>
-                {% endif %}
+                    {% if selected_article %}
+                        <h2>{{ selected_article.title }}</h2>
+                        <p class="text-muted">
+                            <!--Le {{ selected_article.date_publication | date('d F Y à H:i') }}<br> -->
+                            De {{ selected_article.author }}
+                        </p>
+                        <p>{{ selected_article.content }}</p>
+
+                        {% if user.isAdmin %}
+                        <form id="deleteArticleForm" method="POST" action="/delete_article.php" class="mt-3">
+                            <input type="hidden" name="article_id" value="{{ selected_article.id }}">
+                            <button type="submit" class="btn btn-danger">🗑 Supprimer</button>
+                        </form>
+                        {% endif %}
+
+                    {% else %}
+                        <p class="text-muted">Veuillez sélectionner une actualité pour afficher les détails.</p>
+                    {% endif %}
                 </div>
+
             </div>
             </div>
         </div>

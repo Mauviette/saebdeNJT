@@ -59,7 +59,7 @@ class AuthService {
         return false;
     }
 
-    public function register(User $user, string $password): bool
+    public function register(string $email, string $password, string $username): bool
     {
         $userRepository = new UserRepository();
         return $userRepository->createUser($user, $password);
