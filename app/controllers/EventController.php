@@ -7,10 +7,13 @@ require_once './app/entities/Comment.php';
 require_once './app/entities/User.php';
 require_once './app/repositories/CommentRepository.php';
 require_once './app/repositories/UserRepository.php';
+require_once './app/services/AuthService.php';
 
 class EventController extends Controller {
 
     public function event() {
+        $authService = new AuthService();
+        $userActuel = $authService->getUser();
         $id = $_GET['view'] ?? null;
 
         if ($id === null || !is_numeric($id)) {
@@ -46,7 +49,7 @@ class EventController extends Controller {
     
             if ($id && $content) {
                 $commentRepository->createCommentaire(
-                    $user->getId(),
+                    $userActuel->getId(),
                     $event_id,
                     $content,
                 );
@@ -61,7 +64,8 @@ class EventController extends Controller {
         $this->view('event.html.twig', [
             'event' => $event,
             'eventIsPassed' => $eventIsPassed,
-            'commentaires' => $commentaires
+            'commentaires' => $commentaires,
+            'user' => $user
             ]
         );
     }
