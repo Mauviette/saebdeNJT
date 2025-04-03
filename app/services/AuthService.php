@@ -62,7 +62,7 @@ class AuthService {
     public function register(string $email, string $password, string $username): bool
     {
         $userRepository = new UserRepository();
-        return $userRepository->createUser($user, $password);
+        return $userRepository->createUser($email, $password, $username);
     }
 
     public function getUserById(int $id): ?User
