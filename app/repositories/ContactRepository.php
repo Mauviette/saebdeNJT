@@ -65,7 +65,7 @@ class ContactRepository
 			'id_utilisateur' => $id_utilisateur,
 			'sujet' => $sujet,
 			'contenu' => $contenu,
-			'date_creation' => $date_creation ?? date('Y-m-d H:i:s')
+			'date_creation' => $date_creation->format('Y-m-d')
 		]);
 	}
 
