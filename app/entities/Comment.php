@@ -1,53 +1,53 @@
 <?php
 class Comment {
 
-    public function __construct(private ?int $id,
-                            private User $user,
-                            private Event $event,
-                            private ?string $content,
-                            private ?\DateTime $date,
-                            ) {
+	public function __construct(
+		public ?int $id_commentaire,
+		private int $id_utilisateur,
+		private String $nom_utilisateur,
+		private int $id_evenement,
+		private string $contenu,
+		private ?\DateTime $date_publication = null
+	) {}
 
-                            }
+	public function getIdCommentaire(): ?int {
+		return $this->id_commentaire;
+	}
 
-    public function getId(): ?int {
-        return $this->id;
-    }
+	public function setIdCommentaire(?int $id_commentaire): void {
+		$this->id_commentaire = $id_commentaire;
+	}
 
-    public function setId(?int $id): void {
-        $this->id = $id;
-    }
+	public function getIdUtilisateur(): int {
+		return $this->id_utilisateur;
+	}
 
-    public function getUser(): User {
-        return $this->user;
-    }
+	public function setIdUtilisateur(int $id_utilisateur): void {
+		$this->id_utilisateur = $id_utilisateur;
+	}
 
-    public function setUser(?int $user): void {
-        $this->user = $user;
-    }
+	public function getIdEvenement(): int {
+		return $this->id_evenement;
+	}
 
-    public function getEvent(): Event {
-        return $this->event;
-    }
+	public function setIdEvenement(int $id_evenement): void {
+		$this->id_evenement = $id_evenement;
+	}
 
-    public function setEvent(?int $event): void {
-        $this->event = $event;
-    }
+	public function getContenu(): string {
+		return $this->contenu;
+	}
 
-    public function getContent(): ?string {
-        return $this->content;
-    }
+	public function setContenu(string $contenu): void {
+		$this->contenu = $contenu;
+	}
 
-    public function setContent(?string $content): void {
-        $this->content = $content;
-    }
+	public function getDatePublication(): ?\DateTime {
+		return $this->date_publication;
+	}
 
-    public function getDatePublication(): ?\DateTime {
-        return $this->date_publication;
-    }
-
-    public function setDatePublication(?\DateTime $date_publication): void {
-        $this->date_publication = $date_publication;
-    }
+	public function setDatePublication(?\DateTime $date_publication): void {
+		$this->date_publication = $date_publication;
+	}
 }
 ?>

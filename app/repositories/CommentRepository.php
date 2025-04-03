@@ -1,8 +1,8 @@
 <?php
 
 require_once './app/core/Repository.php';
-require_once './app/entities/Commente.php';
-
+require_once './app/entities/Comment.php';
+require_once './app/repositories/UserRepository.php';
 class CommentRepository
 {
 	private $pdo;
@@ -13,6 +13,7 @@ class CommentRepository
 	}
 
 	public function findAll(): array {
+		$userRepository = new UserRepository();
 		$query = "SELECT * FROM Commentaire";
 		$stmt = $this->pdo->prepare($query);
 		$stmt->execute();
@@ -20,9 +21,10 @@ class CommentRepository
 
 		$commentaires = [];
 		foreach ($results as $row) {
-			$commentaires[] = new Commentaire(
+			$commentaires[] = new Comment(
 				$row['id_commentaire'],
 				$row['id_utilisateur'],
+				$userRepository->getUserById($row['id_utilisateur'])->getNom(),
 				$row['id_evenement'],
 				$row['contenu'],
 				new \DateTime($row['date_publication'])
@@ -32,8 +34,9 @@ class CommentRepository
 		return $commentaires;
 	}
 
-	public function getCommentaireById(int $id_commentaire): ?Commentaire
+	public function getCommentaireById(int $id_commentaire): ?Comment
 	{
+		$userRepository = new UserRepository();
 		$query = "SELECT * FROM Commentaire WHERE id_commentaire = :id_commentaire";
 		$stmt = $this->pdo->prepare($query);
 		$stmt->bindParam(':id_commentaire', $id_commentaire, PDO::PARAM_INT);
@@ -41,9 +44,10 @@ class CommentRepository
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
 
 		if ($row) {
-			return new Commentaire(
+			return new Comment(
 				$row['id_commentaire'],
 				$row['id_utilisateur'],
+				$userRepository->getUserById($row['id_utilisateur'])->getNom(),
 				$row['id_evenement'],
 				$row['contenu'],
 				new \DateTime($row['date_publication'])
@@ -55,6 +59,7 @@ class CommentRepository
 
 	public function findAllByEventId(int $id_evenement): array
 	{
+		$userRepository = new UserRepository();
 		$query = "SELECT * FROM Commentaire WHERE id_evenement = :id_evenement";
 		$stmt = $this->pdo->prepare($query);
 		$stmt->bindParam(':id_evenement', $id_evenement, PDO::PARAM_INT);
@@ -63,9 +68,10 @@ class CommentRepository
 
 		$commentaires = [];
 		foreach ($results as $row) {
-			$commentaires[] = new Commentaire(
+			$commentaires[] = new Comment(
 				$row['id_commentaire'],
 				$row['id_utilisateur'],
+				$userRepository->getUserById($row['id_utilisateur'])->getNom(),
 				$row['id_evenement'],
 				$row['contenu'],
 				new \DateTime($row['date_publication'])
