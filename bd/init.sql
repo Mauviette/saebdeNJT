@@ -52,7 +52,6 @@ CREATE TABLE Articles (
     id_utilisateur INT NOT NULL,
     titre VARCHAR(255) NOT NULL,
     contenu TEXT NOT NULL,
-    date_publication TIMESTAMP NOT NULL,
     FOREIGN KEY (id_utilisateur) REFERENCES Utilisateur(id_utilisateur) ON DELETE CASCADE
 );
 

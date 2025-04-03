@@ -40,6 +40,24 @@ class EventController extends Controller {
             }
         }
 
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $event_id = $_POST['event_id'] ?? null;
+            $content = $_POST['content'] ?? null;
+    
+            if ($id && $content) {
+                $commentRepository->createCommentaire(
+                    $user->getId(),
+                    $event_id,
+                    $content,
+                );
+    
+                header('Location: /event.php?view=' . $id);
+                exit;
+            } else {
+                $error = 'Title and content are required.';
+            }
+        }
+
         $this->view('event.html.twig', [
             'event' => $event,
             'eventIsPassed' => $eventIsPassed,

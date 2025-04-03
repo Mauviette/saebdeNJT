@@ -90,7 +90,7 @@ class CommentRepository
 		return $stmt->execute([
 			'id_utilisateur' => $id_utilisateur,
 			'id_evenement' => $id_evenement,
-			'contenu' => $contenu
+			'contenu' => $contenu,
 		]);
 	}
 
