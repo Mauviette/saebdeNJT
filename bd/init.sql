@@ -51,7 +51,7 @@ CREATE TABLE Articles (
     id_article SERIAL PRIMARY KEY,
     titre VARCHAR(255) NOT NULL,
     contenu TEXT NOT NULL,
-    date_publication DATE NOT NULL
+    date_publication TIMESTAMP NOT NULL
 );
 
 CREATE TABLE Commentaires (
