@@ -19,6 +19,7 @@ class ArticleRepository {
         foreach ($results as $row) {
             $articles[] = new Article(
                 $row['id_article'],
+                $row['id_utilisateur'],
                 $row['titre'],
                 $row['contenu'],
                 new \DateTime($row['date_publication'])
@@ -38,6 +39,7 @@ class ArticleRepository {
         if ($row) {
             return new Article(
                 $row['id_article'],
+                $row['id_utilisateur'],
                 $row['titre'],
                 $row['contenu'],
                 new \DateTime($row['date_publication'])
