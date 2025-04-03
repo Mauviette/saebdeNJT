@@ -1,18 +1,21 @@
 document.addEventListener("DOMContentLoaded", function() {
     const quantities = {};
     const cartTotalElement = document.querySelector(".mt-4 .border h4");
-    const filterClothes = document.getElementById("filterClothes");
-    const filterGoodies = document.getElementById("filterGoodies");
+    const cartItemsList = document.getElementById("cart-items");
     const minPrice = document.getElementById("minPrice");
     const maxPrice = document.getElementById("maxPrice");
     const minPriceValue = document.getElementById("minPriceValue");
     const maxPriceValue = document.getElementById("maxPriceValue");
     const products = document.querySelectorAll(".product");
+    const filter = document.getElementsByClassName("filter");
+    const filterNames = document.getElementsByClassName("filterName");
+    const sliderTrack = document.querySelector(".slider-track");
 
     function updateQuantityDisplay(itemId) {
         const quantityElement = document.getElementById(`quantity-${itemId}`);
         quantityElement.textContent = quantities[itemId] || 0;
         updateTotal();
+        updateCartDisplay();
     }
 
     function updateTotal() {
@@ -24,10 +27,24 @@ document.addEventListener("DOMContentLoaded", function() {
             total += price * quantity;
         });
 
-        // Mettre à jour le total affiché dans le panier
         if (cartTotalElement) {
             cartTotalElement.textContent = `Total : ${total.toFixed(2)}€`;
         }
+    }
+
+    function updateCartDisplay() {
+        cartItemsList.innerHTML = ""; // Effacer l'ancien contenu du panier
+
+        Object.keys(quantities).forEach(itemId => {
+            if (quantities[itemId] > 0) {
+                const product = document.querySelector(`#quantity-${itemId}`).closest(".product");
+                const productName = product.querySelector(".card-title").textContent;
+
+                const listItem = document.createElement("p");
+                listItem.textContent = `${quantities[itemId]}x ${productName}`;
+                cartItemsList.appendChild(listItem);
+            }
+        });
     }
 
     window.increaseQuantity = function(itemId, stock) {
@@ -46,48 +63,97 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     };
 
-    // Fonction pour appliquer les filtres
     function applyFilters() {
-        const selectedCategoryClothes = filterClothes.checked;
-        const selectedCategoryGoodies = filterGoodies.checked;
         const min = parseInt(minPrice.value);
         const max = parseInt(maxPrice.value);
+        let isCategorySelected = false;
 
         products.forEach(product => {
             const category = product.getAttribute("data-category").toLowerCase();
             const price = parseFloat(product.querySelector(".card-text").textContent.replace("€", ""));
-            const stock = parseInt(product.querySelector(".stock-text").textContent.replace("Stock : ", ""));
 
-            // Vérifier si le produit est dans la fourchette de prix et correspond à la catégorie sélectionnée
             const inPriceRange = price >= min && price <= max;
-            const isInCategory = (selectedCategoryClothes && category === "vetements") || 
-                                 (selectedCategoryGoodies && category === "goodies") ||
-                                 (!selectedCategoryClothes && !selectedCategoryGoodies); // Si aucun filtre n'est sélectionné
+            let isInCategory = false;
 
-            if (isInCategory && inPriceRange) {
-                product.style.display = "block";  // Afficher le produit
+            for (let i = 0; i < filter.length; i++) {
+                if (filter[i].checked) {
+                    isCategorySelected = true;
+                    if (category === filterNames[i].textContent.toLowerCase()) {
+                        isInCategory = true;
+                    }
+                }
+            }
+
+            if ((isCategorySelected ? isInCategory : true) && inPriceRange) {
+                product.style.display = "block";
             } else {
-                product.style.display = "none";   // Masquer le produit
+                product.style.display = "none";
             }
         });
 
-        updateTotal();  // Mettre à jour le total après l'application des filtres
+        updateTotal();
     }
 
-    // Écouter les événements de changement des filtres
-    filterClothes.addEventListener("change", applyFilters);
-    filterGoodies.addEventListener("change", applyFilters);
+    function updateSliderTrack() {
+        const min = parseInt(minPrice.value);
+        const max = parseInt(maxPrice.value);
+        const minPos = ((min - minPrice.min) / (minPrice.max - minPrice.min)) * 100;
+        const maxPos = ((max - maxPrice.min) / (maxPrice.max - maxPrice.min)) * 100;
+        
+        sliderTrack.style.left = minPos + "%";
+        sliderTrack.style.right = (100 - maxPos) + "%";
+    }
 
-    // Mise à jour de la fourchette de prix
     minPrice.addEventListener("input", function() {
         minPriceValue.textContent = minPrice.value + "€";
-        applyFilters();
-    });
-    maxPrice.addEventListener("input", function() {
-        maxPriceValue.textContent = maxPrice.value + "€";
+        updateSliderTrack();
         applyFilters();
     });
 
-    // Initialiser l'affichage des produits selon les filtres et la fourchette de prix
+    maxPrice.addEventListener("input", function() {
+        maxPriceValue.textContent = maxPrice.value + "€";
+        updateSliderTrack();
+        applyFilters();
+    });
+
+    for (let i = 0; i < filter.length; i++) {
+        filter[i].addEventListener("change", applyFilters);
+    }
+
     applyFilters();
+    updateSliderTrack();
+
+    function updateCartDisplay() {
+        cartItemsList.innerHTML = ""; // Effacer le contenu précédent du panier
+    
+        Object.keys(quantities).forEach(itemId => {
+            if (quantities[itemId] > 0) {
+                const product = document.querySelector(`#quantity-${itemId}`).closest(".product");
+                const productName = product.querySelector(".card-title").textContent;
+                const productPrice = parseFloat(product.querySelector(".card-text").textContent.replace("€", ""));
+                const totalPrice = (productPrice * quantities[itemId]).toFixed(2);
+    
+                const listItem = document.createElement("div");
+                listItem.classList.add("cart-item");
+    
+                const nameElement = document.createElement("span");
+                nameElement.classList.add("cart-item-name");
+                nameElement.textContent = productName;
+    
+                const priceElement = document.createElement("span");
+                priceElement.classList.add("cart-item-price");
+                priceElement.textContent = `${totalPrice}€`;
+    
+                const quantityElement = document.createElement("span");
+                quantityElement.classList.add("cart-item-quantity");
+                quantityElement.textContent = `${quantities[itemId]}x`;
+    
+                listItem.appendChild(nameElement);
+                listItem.appendChild(priceElement);
+                listItem.appendChild(quantityElement);
+                cartItemsList.appendChild(listItem);
+            }
+        });
+    }
+    
 });
