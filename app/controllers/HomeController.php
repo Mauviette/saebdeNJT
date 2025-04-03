@@ -45,6 +45,7 @@ class HomeController extends Controller
         foreach ($articles as $article) {
             if ($article->getId() == $news_id) {
                 $selected_article = $article;
+                $dateAffichage = $selected_article->getDatePublication()->format('d/m/Y H:i:s');
                 break;
             }
         }
@@ -55,6 +56,7 @@ class HomeController extends Controller
         'articles' => $articles,
         'events' => $events,
         'selected_article' => $selected_article,
+        'dateAffichage' => $dateAffichage,
         'user' => $user
     ]);
    }

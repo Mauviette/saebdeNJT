@@ -29,7 +29,7 @@
                     {% if selected_article %}
                         <h2>{{ selected_article.title }}</h2>
                         <p class="text-muted">
-                            <!--Le {{ selected_article.date_publication | date('d F Y à H:i') }}<br> -->
+                            Le {{ dateAffichage }}<br>
                             De {{ selected_article.author }}
                         </p>
                         <p>{{ selected_article.content }}</p>
