@@ -12,11 +12,11 @@ class AddEventController extends Controller {
             $address = $_POST['address'] ?? null;
             $date = $_POST['date'] ?? null;
             $price = $_POST['price'] ?? null;
+            $error = null;
 
             if ($subject && $content && $address && $date && $price) {
                 $eventRepository = new EventRepository();
                 
-                // 1. Création de l'événement (sans image)
                 $eventRepository->createEvent(
                     $subject,
                     $content,
@@ -25,15 +25,13 @@ class AddEventController extends Controller {
                     $price
                 );
 
-                // 2. Récupérer l'ID de l'événement créé
                 $event = $eventRepository->findByTitle($subject);
                 if ($event) {
                     $eventId = $event->getId();
 
-                    // 3. Vérification et sauvegarde de l'image
                     if (!empty($_FILES['eventImage']['name'])) {
-                        $uploadDir = './assets/images/events/'; // Assure-toi que ce dossier existe
-                        $imagePath = $uploadDir . $eventId . '.jpg'; // Forcer l'extension .jpg
+                        $uploadDir = './assets/images/events/';
+                        $imagePath = $uploadDir . $eventId . '.jpg';
 
                         // Vérifier si l'extension est valide
                         $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
@@ -45,6 +43,11 @@ class AddEventController extends Controller {
                             $error = "Format de fichier non autorisé.";
                         }
                     }
+                }
+
+                // Si une erreur est détectée, on ne redirige pas
+                if ($error) {
+                    return $this->view('add_event.html.twig', ['error' => $error]);
                 }
 
                 header('Location: /index.php');
