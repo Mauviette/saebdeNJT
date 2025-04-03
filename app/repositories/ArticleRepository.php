@@ -50,10 +50,11 @@ class ArticleRepository {
         return null;
     }
 
-    public function createArticle(String $title, String $content, DateTime $publication_date): bool {
-        $query = "INSERT INTO Articles (titre, contenu, date_publication) 
-                  VALUES (:title, :content, :publication_date)";
+    public function createArticle(int $id_utilisateur, String $title, String $content, DateTime $publication_date): bool {
+        $query = "INSERT INTO Articles (id_utilisateur, titre, contenu, date_publication) 
+                  VALUES (:id_utilisateur, :title, :content, :publication_date)";
         $stmt = $this->pdo->prepare($query);
+        $stmt->bindValue(':id_utilisateur', $id_utilisateur, PDO::PARAM_STR);
         $stmt->bindValue(':title', $title, PDO::PARAM_STR);
         $stmt->bindValue(':content', $content, PDO::PARAM_STR);
         $stmt->bindValue(':publication_date', $publication_date->format('Y-m-d H:i:s'), PDO::PARAM_STR);
