@@ -9,7 +9,7 @@ class UserRepository {
         $this->pdo = Repository::getInstance()->getPDO();
     }
 
-    public function createUser(string $username, string $password, string $email): bool {
+    public function createUser(string $email, string $password, string $username): bool {
         $sql = "INSERT INTO Utilisateur (nom, email, mot_de_passe, fond, role, date_adhesion) 
                 VALUES (:nom, :email, :mot_de_passe, :fond, :role, :date_adhesion)";
         $stmt = $this->pdo->prepare($sql);
