@@ -158,9 +158,9 @@ INSERT INTO Utilisateur (nom, email, mot_de_passe, fond, role, date_adhesion) VA
 ('Albert Einstein', 'albert.einstein@example.com', 'relativity789', 300.00, 'admin', '2025-03-10');
 
 INSERT INTO Produits (nom_prod, description, prix, stock, category) VALUES
-('T-shirt', 'T-shirt en coton bio', 15.00, 100, 'Vêtements'),
+('T-shirt', 'T-shirt en coton bio', 15.00, 100, 'Vetements'),
 ('Mug', 'Mug en céramique', 10.00, 50, 'Goodies'),
-('Sweatshirt', 'Sweatshirt en polaire', 30.00, 75, 'Vêtements');
+('Sweatshirt', 'Sweatshirt en polaire', 30.00, 75, 'Vetements');
 
 INSERT INTO Contact (id_utilisateur, sujet, contenu) VALUES
 (1, 'Problème de connexion', 'Je n’arrive pas à me connecter à mon compte. Pouvez-vous m’aider ?'),
