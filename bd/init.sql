@@ -131,10 +131,12 @@ CREATE TABLE Est_Envoye_Sur (
 
 
 -- Exemples de données
-INSERT INTO Utilisateur (nom, email, mot_de_passe, fond, role, date_adhesion) VALUES
+-- Ne marche plus puisque les mdp sont hachés, utiliser set_admin.sql pour définir le compte "admin@gmail.com" comme admin
+/*INSERT INTO Utilisateur (nom, email, mot_de_passe, fond, role, date_adhesion) VALUES
 ('Jean Dupont', 'jean.dupont@example.com', 'password123', 100.00, 'utilisateur', '2025-01-01'),
 ('Marie Curie', 'marie.curie@example.com', 'securepass456', 200.00, 'utilisateur_adherent', '2025-02-15'),
-('Albert Einstein', 'albert.einstein@example.com', 'relativity789', 300.00, 'admin', '2025-03-10');
+('Albert Einstein', 'albert.einstein@example.com', 'relativity789', 300.00, 'admin', '2025-03-10');*/
+
 
 INSERT INTO Articles (id_utilisateur, titre, contenu, date_publication) VALUES
 (1,'Découverte d''une nouvelle exoplanète', 'Les astronomes ont découvert une exoplanète potentiellement habitable à 12 années-lumière de la Terre.', '2025-01-15 10:30:00'),
@@ -204,3 +206,4 @@ INSERT INTO Commentaire (id_utilisateur, id_evenement, contenu) VALUES
 (1, 11, 'Miaou miaou, j’ai adoré cet événement.'),
 (2, 12, 'Joyeux anniversaire Jules, une belle fête !'),
 (3, 12, 'Merci pour cette soirée, c’était très réussi !');
+

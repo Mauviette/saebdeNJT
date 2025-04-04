@@ -30,7 +30,6 @@ class AddContactController extends Controller {
             }
         }
     
-        // Afficher la vue après le traitement
         $this->view('contact.html.twig', ['error' => $error ?? null]);
     }
     
