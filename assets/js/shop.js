@@ -3,12 +3,12 @@ document.addEventListener("DOMContentLoaded", function() {
     const cartTotalElement = document.querySelector(".mt-4 .border h4");
     const cartItemsList = document.getElementById("cart-items");
     const membershipInfo = document.getElementById("membership-info");
-    let userRole =  "utilisateur"; // Récupération du rôle de l'utilisateur depuis Twig
-    let discountRate = 1; // Taux de réduction par défaut (1 = pas de réduction)
+    let userRole =  "utilisateur";
+    let discountRate = 1; 
     if (membershipInfo.textContent == "Adhésion au BDE -10%")
     {
         userRole = "utilisateur_adherent";
-        discountRate = 0.9; // 10% de réduction si adhérent
+        discountRate = 0.9;
     }
     console.log("User role:", userRole);
     console.log("Discount rate:", discountRate);
@@ -38,12 +38,12 @@ document.addEventListener("DOMContentLoaded", function() {
             total += price * quantity;
         });
 
-        total *= discountRate; // Application de la réduction si adhérent
+        total *= discountRate;
         cartTotalElement.textContent = `Total : ${total.toFixed(2)}€`;
     }
 
     function updateCartDisplay() {
-        cartItemsList.innerHTML = ""; // Effacer le contenu précédent du panier
+        cartItemsList.innerHTML = "";
     
         Object.keys(quantities).forEach(itemId => {
             if (quantities[itemId] > 0) {
@@ -150,38 +150,4 @@ document.addEventListener("DOMContentLoaded", function() {
 
     applyFilters();
     updateSliderTrack();
-
-    function updateCartDisplay() {
-        cartItemsList.innerHTML = ""; // Effacer le contenu précédent du panier
-    
-        Object.keys(quantities).forEach(itemId => {
-            if (quantities[itemId] > 0) {
-                const product = document.querySelector(`#quantity-${itemId}`).closest(".product");
-                const productName = product.querySelector(".card-title").textContent;
-                const productPrice = parseFloat(product.querySelector(".card-text").textContent.replace("€", ""));
-                const totalPrice = (productPrice * quantities[itemId]).toFixed(2);
-    
-                const listItem = document.createElement("div");
-                listItem.classList.add("cart-item");
-    
-                const nameElement = document.createElement("span");
-                nameElement.classList.add("cart-item-name");
-                nameElement.textContent = productName;
-    
-                const priceElement = document.createElement("span");
-                priceElement.classList.add("cart-item-price");
-                priceElement.textContent = `${totalPrice}€`;
-    
-                const quantityElement = document.createElement("span");
-                quantityElement.classList.add("cart-item-quantity");
-                quantityElement.textContent = `${quantities[itemId]}x`;
-    
-                listItem.appendChild(nameElement);
-                listItem.appendChild(priceElement);
-                listItem.appendChild(quantityElement);
-                cartItemsList.appendChild(listItem);
-            }
-        });
-    }
-    
 });
