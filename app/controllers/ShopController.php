@@ -11,7 +11,7 @@ class ShopController extends Controller {
         $user = $authService->getUser();
 
         if (isset($_GET['delete_item'])) {
-            if (!$user || !$user->isAdmin()) {
+            if ($user && $user->isAdmin()) {
                 $itemId = intval($_GET['delete_item']);
                 $itemRepository = new ItemRepository();
                 $itemRepository->deleteItem($itemId);
