@@ -18,6 +18,9 @@ class AddProduitController extends Controller {
             $error = null;
 
             if ($name && $price && $category) {
+                // Convertir le prix en float
+                $price = (float) str_replace(',', '.', $price);
+
                 $ItemRepository = new ItemRepository();
                 
                 $ItemRepository->createItem($name, $description, $price, $stock, $category);
