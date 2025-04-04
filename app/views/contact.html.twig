@@ -14,7 +14,11 @@
                 <div class="mb-3">
                     <textarea class="form-control" id="content" name="content" rows="5"></textarea>
                 </div>
-                <button type="submit" class="btn btn-secondary">Envoyer</button>
+                {% if user %}
+                    <button type="submit" class="btn btn-secondary">Envoyer</button>
+                {% else %}
+                    <p class="text-muted">Connectez-vous pour envoyer un message.</p>
+                {% endif %}
             </form>
         </div>
         

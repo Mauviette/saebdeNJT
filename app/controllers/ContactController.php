@@ -6,6 +6,9 @@ require_once './app/repositories/ContactRepository.php';
 class ContactController extends Controller {
 
     public function about() {
+        $authService = new AuthService();
+        $userActuel = $authService->getUser();
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $title = $_POST['subject'] ?? null;
             $content = $_POST['content'] ?? null;
@@ -30,6 +33,9 @@ class ContactController extends Controller {
         }
     
         // Afficher la vue après le traitement
-        $this->view('contact.html.twig', ['error' => $error ?? null]);
+        $this->view('contact.html.twig', [
+            'error' => $error ?? null,
+            'user' => $userActuel,
+    ]);
     }
 }
