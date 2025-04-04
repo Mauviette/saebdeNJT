@@ -38,7 +38,7 @@ class UserRepository {
         return $stmt->execute([
             ':nom' => $username,
             ':email' => $email,
-            ':mot_de_passe' => $password, //password_hash($password, PASSWORD_BCRYPT), CRYPTAGE
+            ':mot_de_passe' => $password, //password_hash($password, PASSWORD_BCRYPT), ON a eu des soucis avec le cryptage on l'a donc desactivé
             ':fond' => 0,
             ':role' => 'utilisateur',
             ':date_adhesion' => (new \DateTime())->format('Y-m-d')
