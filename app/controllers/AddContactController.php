@@ -26,7 +26,7 @@ class AddContactController extends Controller {
                 header('Location: /index.php');
                 exit;
             } else {
-                $error = 'Title and content are required.';
+                $error = 'Le titre et le contenu sont obligatoires.';
             }
         }
     

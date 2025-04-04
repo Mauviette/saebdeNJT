@@ -57,7 +57,7 @@ class EventController extends Controller {
                 header('Location: /event.php?view=' . $id);
                 exit;
             } else {
-                $error = 'Title and content are required.';
+                $error = 'Le contenu est requis.';
             }
         }
 

@@ -37,7 +37,6 @@ class ArticleController extends Controller{
 
                 $errors = [];
 
-                // Validation des données
                 if (empty($data['category_id'])) {
                     $errors[] = 'La catégorie est requise.';
                 }
@@ -97,7 +96,7 @@ class ArticleController extends Controller{
         $id = $this->getQueryParam('id');
 
         if ($id === null) {
-            throw new Exception('Article ID is required.');
+            throw new Exception('L\'identifiant de l\'article est requis.');
         }
         $repository = new ArticleRepository();
         $categoryRepo = new CategoryRepository();

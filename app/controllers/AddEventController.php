@@ -45,7 +45,6 @@ class AddEventController extends Controller {
                     }
                 }
 
-                // Si une erreur est détectée, on ne redirige pas
                 if ($error) {
                     return $this->view('add_event.html.twig', ['error' => $error]);
                 }

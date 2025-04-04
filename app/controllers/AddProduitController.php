@@ -6,10 +6,8 @@ require_once './app/entities/Item.php';
 
 class AddProduitController extends Controller {
     public function add() {
-        error_log("WOH CA RENTRE DANS LA FONCTION");
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            error_log("WOH CA RENTRE DANS LA FONCTION POST");
             $name = $_POST['name'] ?? null;
             $description = $_POST['description'] ?? null;
             $price = $_POST['price'] ?? null;
@@ -18,7 +16,7 @@ class AddProduitController extends Controller {
             $error = null;
 
             if ($name && $price && $category) {
-                // Convertir le prix en float
+
                 $price = (float) str_replace(',', '.', $price);
 
                 $ItemRepository = new ItemRepository();
@@ -48,9 +46,7 @@ class AddProduitController extends Controller {
                     }
                 }
 
-                // Si une erreur est détectée, on ne redirige pas
                 if ($error) {
-                    error_log("WOH CA RENTRE DANS LA FONCTION POST ERREUR" + $error);
                     return $this->view('add_produit.html.twig', ['error' => $error]);
                 }
 
