@@ -20,6 +20,11 @@
                                 <button id="decrease-{{ item.id }}" class="btn btn-outline-secondary btn-sm" onclick="decreaseQuantity('{{ item.id }}')">-</button>
                                 <span class="mx-2" id="quantity-{{ item.id }}" data-stock="{{ item.quantity }}">0</span>
                                 <button id="increase-{{ item.id }}" class="btn btn-outline-secondary btn-sm" onclick="increaseQuantity('{{ item.id }}','{{ item.quantity }}')">+</button>
+                                {% if isAdmin %}
+                                    <form method="post" action="?delete_item={{ item.id }}" style="display: inline;">
+                                        <button type="submit" class="btn btn-danger btn-sm ms-2">Supprimer</button>
+                                    </form>
+                                {% endif %}
                             </div>
                         </div>
                     </div>

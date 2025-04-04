@@ -6,11 +6,22 @@ require_once './app/services/AuthService.php';
 
 class ShopController extends Controller {
     public function shop() {
+        
+        $authService = new AuthService();
+        $user = $authService->getUser();
+
+        if (isset($_GET['delete_item'])) {
+            if (!$user || !$user->isAdmin()) {
+                $itemId = intval($_GET['delete_item']);
+                $itemRepository = new ItemRepository();
+                $itemRepository->deleteItem($itemId);
+            }
+            header('Location: /shop.php');
+            exit;
+        }
 
         $items = (new ItemRepository())->findAll();
 
-        $authService = new AuthService();
-        $user = $authService->getUser();
 
         
         error_log($items[0]->getName());
@@ -25,7 +36,8 @@ class ShopController extends Controller {
         $this->view('shop.html.twig', [
             'items' => $items,
             'categories' => (new ItemRepository())->findAllCategory(),
-            'userRole' => $user->getRole()
+            'userRole' => $user->getRole(),
+            'isAdmin' => $user->isAdmin()
         ]);
     }
 }

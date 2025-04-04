@@ -47,7 +47,7 @@ class HomeController extends Controller
         foreach ($articles as $article) {
             if ($article->getId() == $news_id) {
                 $selected_article = $article;
-                $dateAffichage = $selected_article->getDatePublication()->format('d/m/Y H:i:s');
+                $dateAffichage = $selected_article->getDatePublication()->format('d/m/Y H:i');
                 $userAffichage = $userRepository->getUserById($article->getUserId())->getNom();
                 
                 break;

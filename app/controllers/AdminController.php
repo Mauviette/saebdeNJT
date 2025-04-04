@@ -22,6 +22,11 @@ class AdminController extends Controller {
         $authService = new AuthService();
         $user = $authService->getUser();
 
+        if (!$user || !$user->isAdmin()) {
+            header('Location: /index.php');
+            exit;
+        }
+
         if ($contact_id !== null) {
             foreach ($contacts as $contact) {
             if ($contact->getIdContact() == $contact_id) {

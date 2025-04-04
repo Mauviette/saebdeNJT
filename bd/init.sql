@@ -8,7 +8,7 @@ DROP TABLE IF EXISTS Est_Envoye_Sur CASCADE;
 DROP TABLE IF EXISTS Utilisateur CASCADE;
 DROP TABLE IF EXISTS Evenements CASCADE;
 DROP TABLE IF EXISTS Commande CASCADE;
-DROP TABLE IF EXISTS Commentaires CASCADE;
+DROP TABLE IF EXISTS Commentaire CASCADE;
 DROP TABLE IF EXISTS Produits CASCADE;
 DROP TABLE IF EXISTS Contact CASCADE;
 
@@ -52,16 +52,10 @@ CREATE TABLE Articles (
     id_utilisateur INT NOT NULL,
     titre VARCHAR(255) NOT NULL,
     contenu TEXT NOT NULL,
+    date_publication TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_utilisateur) REFERENCES Utilisateur(id_utilisateur) ON DELETE CASCADE
 );
 
-CREATE TABLE Commentaires (
-    id_commentaire SERIAL PRIMARY KEY,
-    id_article INT NOT NULL,
-    contenu TEXT NOT NULL,
-    date_publication TIMESTAMP NOT NULL,
-    FOREIGN KEY (id_article) REFERENCES Articles(id_article) ON DELETE CASCADE
-);
 
 CREATE TABLE Contact (
     id_contact SERIAL PRIMARY KEY,
@@ -143,16 +137,16 @@ INSERT INTO Utilisateur (nom, email, mot_de_passe, fond, role, date_adhesion) VA
 ('Albert Einstein', 'albert.einstein@example.com', 'relativity789', 300.00, 'admin', '2025-03-10');
 
 INSERT INTO Articles (id_utilisateur, titre, contenu, date_publication) VALUES
-(1,'Découverte d''une nouvelle exoplanète', 'Les astronomes ont découvert une exoplanète potentiellement habitable à 12 années-lumière de la Terre.', '2025-01-15'),
-(1,'Avancée majeure dans la lutte contre le cancer', 'Des chercheurs ont mis au point un traitement révolutionnaire qui réduit les tumeurs de 80% en quelques semaines.', '2025-02-20'),
-(2,'Lancement d''une voiture électrique révolutionnaire', 'Une startup a dévoilé une voiture électrique avec une autonomie de 1000 km et une recharge en 5 minutes.', '2025-03-10'),
-(3,'Record mondial de vitesse en avion', 'Un avion expérimental a battu le record de vitesse en atteignant Mach 10.', '2025-04-05'),
-(1,'Découverte d''une cité perdue', 'Des archéologues ont découvert une cité perdue datant de 3000 ans dans la jungle amazonienne.', '2025-05-12'),
-(2,'Progrès dans l''intelligence artificielle', 'Une nouvelle IA est capable de composer des symphonies dignes des plus grands compositeurs.', '2025-06-18'),
-(1,'Mission réussie sur Mars', 'Un rover a découvert des traces d''eau liquide sur Mars, relançant les espoirs de trouver de la vie.', '2025-07-22'),
-(3,'Invention d''un matériau ultra-résistant', 'Des scientifiques ont créé un matériau 10 fois plus résistant que l''acier et 5 fois plus léger.', '2025-08-30'),
-(3,'Découverte d''une nouvelle espèce marine', 'Une expédition sous-marine a révélé une espèce de poisson bioluminescent inconnue jusqu''à présent.', '2025-09-14'),
-(3,'Progrès dans l''intelligence artificielle', 'Une nouvelle IA est capable de composer des symphonies dignes des plus grands compositeurs.', '2025-10-01');
+(1,'Découverte d''une nouvelle exoplanète', 'Les astronomes ont découvert une exoplanète potentiellement habitable à 12 années-lumière de la Terre.', '2025-01-15 10:30:00'),
+(1,'Avancée majeure dans la lutte contre le cancer', 'Des chercheurs ont mis au point un traitement révolutionnaire qui réduit les tumeurs de 80% en quelques semaines.', '2025-02-20 14:45:00'),
+(2,'Lancement d''une voiture électrique révolutionnaire', 'Une startup a dévoilé une voiture électrique avec une autonomie de 1000 km et une recharge en 5 minutes.', '2025-03-10 09:15:00'),
+(3,'Record mondial de vitesse en avion', 'Un avion expérimental a battu le record de vitesse en atteignant Mach 10.', '2025-04-05 16:00:00'),
+(1,'Découverte d''une cité perdue', 'Des archéologues ont découvert une cité perdue datant de 3000 ans dans la jungle amazonienne.', '2025-05-12 11:20:00'),
+(2,'Progrès dans l''intelligence artificielle', 'Une nouvelle IA est capable de composer des symphonies dignes des plus grands compositeurs.', '2025-06-18 13:50:00'),
+(1,'Mission réussie sur Mars', 'Un rover a découvert des traces d''eau liquide sur Mars, relançant les espoirs de trouver de la vie.', '2025-07-22 08:40:00'),
+(3,'Invention d''un matériau ultra-résistant', 'Des scientifiques ont créé un matériau 10 fois plus résistant que l''acier et 5 fois plus léger.', '2025-08-30 17:25:00'),
+(3,'Découverte d''une nouvelle espèce marine', 'Une expédition sous-marine a révélé une espèce de poisson bioluminescent inconnue jusqu''à présent.', '2025-09-14 19:10:00'),
+(3,'Progrès dans l''intelligence artificielle', 'Une nouvelle IA est capable de composer des symphonies dignes des plus grands compositeurs.', '2025-10-01 12:05:00');
 
 INSERT INTO Evenements (titre, description, lieu, prix, date_evenement) VALUES
 ('Soirée Laser Game', 'Une soirée amusante de laser game entre amis.', 'Laser Game Arena, Paris', 20.00, '2025-11-15'),

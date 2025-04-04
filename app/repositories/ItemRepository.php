@@ -98,4 +98,12 @@ class ItemRepository {
 
         return $stmt->execute();
     }
+
+    public function deleteItem (int $id): bool {
+        $query = "DELETE FROM Produits WHERE id_produit = :id";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+
+        return $stmt->execute();
+    }
 }

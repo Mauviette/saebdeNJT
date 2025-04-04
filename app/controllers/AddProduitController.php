@@ -11,33 +11,36 @@ class AddProduitController extends Controller {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             error_log("WOH CA RENTRE DANS LA FONCTION POST");
             $name = $_POST['name'] ?? null;
+            $description = $_POST['description'] ?? null;
             $price = $_POST['price'] ?? null;
             $stock = $_POST['stock'] ?? null;
             $category = $_POST['category'] ?? null;
-            $productImage = $_FILES['ItemImage'] ?? null;
             $error = null;
 
             if ($name && $price && $category) {
                 $ItemRepository = new ItemRepository();
                 
-                $ItemRepository->createItem($name, '', $price, $stock, $category);
+                $ItemRepository->createItem($name, $description, $price, $stock, $category);
 
                 $Item = $ItemRepository->findByName($name);
+
                 if ($Item) {
                     $ItemId = $Item->getId();
+                    error_log($ItemId);
+                    error_log($_FILES['productImage']['name']);
 
-                    if (!empty($_FILES['ItemImage']['name'])) {
+                    if (!empty($_FILES['productImage']['name'])) {
                         $uploadDir = './assets/images/items/';
                         $imagePath = $uploadDir . $ItemId . '.jpg';
 
                         // Vérifier si l'extension est valide
                         $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
-                        $fileExtension = strtolower(pathinfo($_FILES['ItemImage']['name'], PATHINFO_EXTENSION));
+                        $fileExtension = strtolower(pathinfo($_FILES['productImage']['name'], PATHINFO_EXTENSION));
 
                         if (in_array($fileExtension, $allowedExtensions)) {
-                            move_uploaded_file($_FILES['ItemImage']['tmp_name'], $imagePath);
+                            move_uploaded_file($_FILES['productImage']['tmp_name'], $imagePath);
                         } else {
-                            $error = "Format de fichier non autorisé.";
+                            error_log("Format de fichier non autorisé.");
                         }
                     }
                 }

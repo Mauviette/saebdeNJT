@@ -65,7 +65,7 @@ class EventController extends Controller {
             'event' => $event,
             'eventIsPassed' => $eventIsPassed,
             'commentaires' => $commentaires,
-            'user' => $user
+            'user' => $userActuel
             ]
         );
     }
